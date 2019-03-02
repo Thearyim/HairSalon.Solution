@@ -5,7 +5,7 @@ using HairSalon.Models;
 
 namespace HairSalon.Controllers
 {
-  public class StylistsController : Controller
+  public class StylistController : Controller
   {
 
     [HttpGet("/stylists")]
