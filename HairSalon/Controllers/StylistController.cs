@@ -11,7 +11,7 @@ namespace HairSalon.Controllers
     [HttpGet("/stylists")]
     public ActionResult Index()
     {
-      List<StylistClass> allStylists = Stylist.GetAll();
+      List<StylistClass> allStylists = StylistClass.GetAll();
       return View(allStylists);
     }
 
@@ -22,9 +22,9 @@ namespace HairSalon.Controllers
     }
 
     [HttpPost("/stylists")]
-    public ActionResult Create(string stylistName)
+    public ActionResult Create(string stylistName, string stylistType)
     {
-      StylistClass newStylist = new Stylist(stylistName);
+      StylistClass newStylist = new StylistClass(stylistName, stylistType);
       newStylist.Save();
       return RedirectToAction("Index");
     }
@@ -33,8 +33,8 @@ namespace HairSalon.Controllers
     public ActionResult Show(int id)
     {
       Dictionary<string, object> model = new Dictionary<string, object>();
-      StylistClass selectedStylist = Stylist.Find(id);
-      List<Client> stylistClient = selectedStylist.GetClients();
+      StylistClass selectedStylist = StylistClass.Find(id);
+      List<ClientClass> stylistClient = selectedStylist.GetClients();
       model.Add("stylist", selectedStylist);
       model.Add("clients", stylistClient);
       return View(model);
@@ -43,7 +43,7 @@ namespace HairSalon.Controllers
     [HttpPost("/stylists/{id}/delete")]
     public ActionResult Delete(int id)
     {
-      StylistClass selectedStylist = Stylist.Find(id);
+      StylistClass selectedStylist = StylistClass.Find(id);
       selectedStylist.Delete(id);
       return RedirectToAction("Index");
     }
@@ -52,10 +52,10 @@ namespace HairSalon.Controllers
     public ActionResult Create(int stylistId, string clientName)
     {
       Dictionary<string, object> model = new Dictionary<string, object>();
-      StylistClass foundStylist = Stylist.Find(stylistId);
-      Client newClient = new Client(stylistId, name);
+      StylistClass foundStylist = StylistClass.Find(stylistId);
+      ClientClass newClient = new ClientClass(clientName, stylistId);
       newClient.Save();
-      List<Client> stylistClients = foundStylist.GetClients();
+      List<ClientClass> stylistClients = foundStylist.GetClients();
       model.Add("clients", stylistClients);
       model.Add("stylist", foundStylist);
       return View("Show", model);

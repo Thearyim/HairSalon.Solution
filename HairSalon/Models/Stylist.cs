@@ -10,12 +10,17 @@ namespace HairSalon.Models
         private string _name;
         private string _type;
 
+    public StylistClass(string name, string type)
+        {
+            _name = name;
+            _type = type;
+        }
 
         public StylistClass(int id, string name, string type)
         {
-            _id = stylistId;
-            _name = stylistName;
-            _type = stylistType;
+            _id = id;
+            _name = name;
+            _type = type;
         }
 
         public int GetId()
@@ -28,7 +33,7 @@ namespace HairSalon.Models
             return _name;
         }
 
-        public string GetType()
+        public string GetStylistType()
         {
             return _type;
         }
@@ -97,16 +102,18 @@ namespace HairSalon.Models
             MySqlParameter searchId = new MySqlParameter();
             searchId.ParameterName = "@searchId";
             searchId.Value = id;
-            cmd.Parameters.Add(seachId);
+            cmd.Parameters.Add(searchId);
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
-            int StylistId = 0;
-            string StylistName = "";
+            int stylistId = 0;
+            string stylistName = "";
+            string stylistType = "";
             while(rdr.Read())
             {
-                StylistId = rdr.GetInt32(0);
-                StylistName = rdr.GetString(1);
+                stylistId = rdr.GetInt32(0);
+                stylistName = rdr.GetString(1);
+                stylistType = rdr.GetString(2);
             }
-            StylistClass newStylist = new StylistClass(stylistId, StylistName);
+            StylistClass newStylist = new StylistClass(stylistId, stylistName, stylistType);
             conn.Close();
             if (conn != null)
             {
@@ -153,8 +160,9 @@ namespace HairSalon.Models
             while(rdr.Read())
             {
                 int clientId = rdr.GetInt32(0);
-                int clientStylistId = rdr.GetInt32(1);
-                ClientClass newClient = new ClientClass(clientId, clientStylistId);
+                string clientName = rdr.GetString(1);
+                int clientStylistId = rdr.GetInt32(2);
+                ClientClass newClient = new ClientClass(clientId, clientName, clientStylistId);
                 allStylistClients.Add(newClient);
             }
             conn.Close();
@@ -171,6 +179,8 @@ namespace HairSalon.Models
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"INSERT INTO stylists (name) VALUES (@name);";
+            MySqlParameter name = new MySqlParameter();
+            name.ParameterName = "@name";
             name.Value = this._name;
             cmd.Parameters.Add(name);
             cmd.ExecuteNonQuery();

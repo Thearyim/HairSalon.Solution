@@ -34,12 +34,12 @@ namespace HairSalon.Controllers
       return View(foundStylist);
     }
 
-    [HttpPost("/clients/delete")]
-    public ActionResult DeleteAll()
-    {
-      ClientClass.ClearAll();
-      return View();
-    }
+    //[HttpPost("/clients/delete")]
+    //public ActionResult DeleteAll()
+    //{
+    //  ClientClass.ClearAll();
+    //  return View();
+    //}
 
     [HttpGet("/stylists/{stylistId}/clients/{clientId}/edit")]
     public ActionResult Edit(int stylistId, int clientId)
@@ -52,17 +52,17 @@ namespace HairSalon.Controllers
       return View(model);
     }
 
-    [HttpPost("/stylists/{stylistId}/clients/{clientId}")]
-    public ActionResult Update(int stylistId, int clientId, string newName)
-    {
-      ClientClass client = ClientClass.Find(clientId);
-      client.Edit(newname);
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      StylistClass stylist = StylistClass.Find(stylistId);
-      model.Add("stylist", stylist);
-      model.Add("client", client);
-      return View("Show", model);
-    }
+    //[HttpPost("/stylists/{stylistId}/clients/{clientId}")]
+    //public ActionResult Update(int stylistId, int clientId, string newName)
+    //{
+    //  ClientClass client = ClientClass.Find(clientId);
+    //  client..Edit(newname);
+    //  Dictionary<string, object> model = new Dictionary<string, object>();
+    //  StylistClass stylist = StylistClass.Find(stylistId);
+    //  model.Add("stylist", stylist);
+    //  model.Add("client", client);
+    //  return View("Show", model);
+    //}
 
 
   }
