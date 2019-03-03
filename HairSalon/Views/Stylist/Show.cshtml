@@ -1,9 +1,6 @@
-<h1>Here are the stylists avaliable</h1>
-
-<h2>@Model["stylist"].GetName()</h2>
-<h3>Stylist: @Model["stylist"].GetName()</h3>
-
-<h1>Stylist Details</h1>
+<h1>Here are the stylists available</h1>
+<h2>Stylist: @Model["stylist"].GetName()</h2>
+<h3>Client list for each stylist</h3>
 <ol>
 @foreach (var client in @Model["clients"])
 {
@@ -12,12 +9,16 @@
 </ol>
 
 <p><a href='/stylists/@Model["stylist"].GetId()/clients/new'>Add a new client</a></p>
-<form action="/stylists/@Model["stylist"].GetId()/clients/@Model["client"].GetId()/delete" method="post">
-  <button type="submit">Remove this client</button>
-</form>
+@foreach (var client in @Model["clients"])
+{
+  <form action='/stylists/@Model["stylist"].GetId()/clients/@client.GetId()/delete' method='post'>
+    <button type='submit'>Remove this client</button>
+  </form>
+}
 
-<form action="/stylists/@Model["stylist"].GetId()/delete" method="post">
-  <button type="submit">Remove this stylist</button>
+
+<form action='/stylists/@Model["stylist"].GetId()/delete' method='post'>
+  <button type='submit'>Remove this stylist</button>
 </form>
 <p><a href='/stylists'>Return to list of stylist</a></p>
 <p><a href='/'>Return to home</a></p>

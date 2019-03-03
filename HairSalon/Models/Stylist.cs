@@ -152,10 +152,11 @@ namespace HairSalon.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM client WHERE stylist_id = @stylist_id;";
+            cmd.CommandText = @"SELECT * FROM client WHERE stylist_id = (@stylist_id);";
             MySqlParameter stylistId = new MySqlParameter();
             stylistId.ParameterName = "@stylist_id";
             stylistId.Value = this._id;
+            cmd.Parameters.Add(stylistId);
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             while(rdr.Read())
             {
