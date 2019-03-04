@@ -1,114 +1,105 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using HairSalon.Models;
-using System.IO;
- 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace HairSalon.Tests
 {
     [TestClass]
-    public class HairSalonTest : IDisposable
+    public class StylishTest
     {
-
-        public void Dispose()
-        {
-            StylistClass.ClearAll();
-            ClientClass.ClearAll();
-        }
-
-        public HairSalonTest()
-        {
-            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8890;database=theary_im_test;";
-        }
-
         [TestMethod]
         public void GetName_ReturnsName_StylistString()
         {
             //Arrange
-            StylistClass Stylist = new StylistClass("Sophie");
+            StylistClass stylist = new StylistClass("Stylist1", "Cut");
 
             //Act
-            var newName = Stylist.GetName();
+            string newName = stylist.GetName();
 
             //Assert
             Assert.IsInstanceOfType(newName, typeof(string));
         }
 
         [TestMethod]
-        public void GetId_ReturnsName_Int()
+        public void GetId_ReturnsTheExpectedId_Int()
         {
             //Arrange
-            StylistClass Stylist = new StylistClass("Sophie");
+            StylistClass stylist = new StylistClass(1, "Stylist2", "Cut");
 
             //Act
-            var newName = Stylist.GetId();
+            int stylishId = stylist.GetId();
 
             //Assert
-            Assert.IsInstanceOfType(newName, typeof(int));
+            Assert.AreEqual(1, stylishId);
         }
 
         [TestMethod]
         public void GetAll_ReturnsEmptyListFromDatabase_StylistClassList()
         {
             //Arrange
-            List<StylistClass> newList = new List<StylistClass> { };
+            StylistClass anyStylist = new StylistClass("Stylist3", "Cut");
 
             //Act
-            List<StylistClass> result = StylistClass.GetAll();
+            anyStylist.Save();
+
+            //Act
+            List<StylistClass> allStylists = StylistClass.GetAll();
 
             //Assert
-            CollectionAssert.AreEqual(newList, result);
+            Assert.IsTrue(allStylists.Count >= 1);
         }
         
         [TestMethod]
         public void Save_SavesToDatabase_StylistList()
         {
             //Arrange
-            string name = "Sophie";
-            StylistClass Stylist = new StylistClass(name);
+            string stylishName = "Stylist4";
+            string stylishType = "Cut";
+            StylistClass stylish = new StylistClass(stylishName, stylishType);
 
             //Act
-            StylistClass.Save(name);
+            stylish.Save();
             List<StylistClass> result = StylistClass.GetAll();
-            List<StylistClass> testList = new List<StylistClass>{Stylist};
 
             //Assert
-            CollectionAssert.AreEqual(testList, result);
+            Assert.IsTrue(result.Count > 0);
+            Assert.IsTrue(result.Any(r => r.GetName() == stylishName));
         }
 
         [TestMethod]
-        public void FindById_ReturnsStylistList_Stylist()
+        public void FindById_ReturnsExpectedStylist_Stylist()
         {
             //Arrange
-            string name = "Sophie";
+            string stylishName = "Stylist5";
+            string stylishType = "Cut";
+            StylistClass expectedStylish = new StylistClass(stylishName, stylishType);
 
             //Act
-            StylistClass.Save(name);
-            StylistClass Stylist = StylistClass.FindById(1);
+            expectedStylish.Save();
+            StylistClass actualStylist = StylistClass.Find(expectedStylish.GetId());
 
-            StylistClass Bryan = new StylistClass("Sophie");
-            Bryan = Stylist;
-
-            //Assert
-           Assert.IsInstanceOfType(Bryan, typeof(StylistClass));
+            // Assert
+            Assert.IsNotNull(actualStylist);
         }
 
         [TestMethod]
         public void Delete_DeletesStylistById_StylistList()
         {
             //Arrange
-            string name = "Sophie";
-            List<StylistClass> StylistList = new List<StylistClass> {};
+            string stylishName = "Stylist6";
+            string stylishType = "Cut";
+            StylistClass expectedStylish = new StylistClass(stylishName, stylishType);
 
             //Act
-            StylistClass.Save(name);
-            List<StylistClass> StylistListTwo = StylistClass.GetAll();
-            int id = StylistListTwo[0].GetId();
-            StylistClass.Delete(id);
-            List<StylistClass> StylistListThree = StylistClass.GetAll();
+            expectedStylish.Save();
+            StylistClass actualStylist = StylistClass.Find(expectedStylish.GetId());
 
-            //Assert
-           CollectionAssert.AreEqual(StylistList, StylistListThree);
+            actualStylist.Delete(expectedStylish.GetId());
+
+            // Assert
+            StylistClass deletedStylist = StylistClass.Find(expectedStylish.GetId());
+            Assert.IsNull(deletedStylist);
         }     
     }
 }

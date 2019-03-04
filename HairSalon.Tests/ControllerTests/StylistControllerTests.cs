@@ -1,8 +1,6 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using HairSalon.Controllers;
-using HairSalon.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HairSalon.Tests
 {
@@ -29,7 +27,7 @@ namespace HairSalon.Tests
            StylistController controller = new StylistController();
 
             //Act
-            ActionResult newView = controller.New();
+            ActionResult newView = controller.NewStylist();
 
             //Assert
             Assert.IsInstanceOfType(newView, typeof(ViewResult));
@@ -42,37 +40,37 @@ namespace HairSalon.Tests
            StylistController controller = new StylistController();
 
             //Act
-            ActionResult newView = controller.Show(1);
+            ActionResult newView = controller.ShowStylist(1);
 
             //Assert
             Assert.IsInstanceOfType(newView, typeof(ViewResult));
         }
 
         [TestMethod]
-        public void CreateStylist_ReturnsCorrectView_True()
+        public void CreateStylish_ReturnsCorrectView_True()
         {
             //Arrange
             StylistController controller = new StylistController();
 
             //Act
-            ActionResult newView = controller.Create("Sophie");
+            ActionResult newView = controller.CreateStylist("Sophie", "Color");
 
             //Assert
             Assert.IsInstanceOfType(newView, typeof(RedirectToActionResult));
         }
 
-        [TestMethod]
-        public void DeleteAllStylists_ReturnsCorrectView_True()
-        {
-            //Arrange
-            StylistController controller = new StylistController();
+        //[TestMethod]
+        //public void DeleteAllStylists_ReturnsCorrectView_True()
+        //{
+        //    //Arrange
+        //    StylistController controller = new StylistController();
 
-            //Act
-            ActionResult newView = controller.DeleteAll();
+        //    //Act
+        //    ActionResult newView = controller.DeleteAll();
 
-            //Assert
-            Assert.IsInstanceOfType(newView, typeof(RedirectToActionResult));
-        }
+        //    //Assert
+        //    Assert.IsInstanceOfType(newView, typeof(RedirectToActionResult));
+        //}
 
     }
 }

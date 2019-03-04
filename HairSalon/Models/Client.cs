@@ -106,19 +106,22 @@ namespace HairSalon.Models
             int clientId = 0;
             string clientName = "";
             int clientStylistId = 0;
-            while(rdr.Read())
+            ClientClass client = null;
+
+            while (rdr.Read())
             {
                 clientId = rdr.GetInt32(0);
                 clientName = rdr.GetString(1);
                 clientStylistId = rdr.GetInt32(2);
+                client = new ClientClass(clientId, clientName, clientStylistId);
             }
-            ClientClass newClient = new ClientClass(clientId, clientName, clientStylistId);
+             
             conn.Close();
             if (conn != null)
             {
                 conn.Dispose();
             }
-            return newClient;
+            return client;
         }
 
         public static List<ClientClass> GetAll()

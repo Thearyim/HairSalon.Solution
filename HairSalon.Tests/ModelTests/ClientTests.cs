@@ -6,125 +6,127 @@ using System;
 namespace HairSalon.Tests
 {
     [TestClass]
-    public class ClientTest : IDisposable
+    public class ClientTest
     {
-
-        public void Dispose()
+        [ClassInitialize]
+        public static void InitializeClass(TestContext context)
         {
-            Client.ClearAll();
-        }
-
-        public HairSalonTest()
-        {
-            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8890;database=theary_im_test;";
+            TestSetup.InitializeDatabase();
         }
 
         [TestMethod]
         public void GetName_ReturnsName_String()
         {
             //Arrange
-            ClientClass Client = new ClientClass("Bryan", 1);
+            ClientClass client = new ClientClass("Bryan", 1);
 
             //Act
-            var newName = Client.GetName();
+            var newName = client.GetName();
 
             //Assert
             Assert.IsInstanceOfType(newName, typeof(string));
         }
 
         [TestMethod]
-        public void GetId_ReturnsName_ClientInt()
+        public void GetId_ReturnsExpectedId()
         {
             //Arrange
-            ClientClass Client = new ClientClass("Bryan", 1);
+            ClientClass client = new ClientClass(3, "Bryan", 1);
 
             //Act
-            var newName = Client.GetId();
+            int id = client.GetId();
 
             //Assert
-            Assert.IsInstanceOfType(newName, typeof(int));
+            Assert.AreEqual(3, id);
         }
 
         [TestMethod]
-        public void GetStylistId_ReturnsName_ClientInt()
+        public void GetStylistId_ReturnsExpectedId_ClientInt()
         {
             //Arrange
-            ClientClass Client = new ClientClass("Bryan", 1);
+            ClientClass client = new ClientClass("Bryan", 1);
 
             //Act
-            var newName = Client.GetStylistId();
+            int stylishId = client.GetStylistId();
 
             //Assert
-            Assert.IsInstanceOfType(newName, typeof(int));
+            Assert.AreEqual(1, stylishId);
         }
 
         [TestMethod]
-        public void GetAll_ReturnsEmptyListFromDatabase_ClientClassList()
+        public void GetAll_ReturnsAllClientRecordsInTheDatabase()
         {
             //Arrange
-            List<ClientClass> newList = new List<ClientClass> { };
+            ClientClass anyClient = new ClientClass("Client1", 2);
 
             //Act
-            List<ClientClass> result = ClientClass.GetAll();
+            anyClient.Save();
+
+            //Act
+            List<ClientClass> allClients = ClientClass.GetAll();
 
             //Assert
-            CollectionAssert.AreEqual(newList, result);
+            Assert.IsTrue(allClients.Count >= 1);
         }
 
         [TestMethod]
         public void Save_SavesToDatabase_ClientList()
         {
             //Arrange
-            ClientClass testStylist = new ClientClass("Bryan", 2);
+            ClientClass newClient = new ClientClass("Client2", 2);
 
             //Act
-            testStylist.Save();
-            List<ClientClass> result = ClientClass.GetAll();
-            List<ClientClass> testList = new List<ClientClass>{testStylist};
+            newClient.Save();
+            List<ClientClass> allClients = ClientClass.GetAll();
+
+            bool clientFound = false;
+            foreach (ClientClass actualClient in allClients)
+            {
+                if (actualClient.GetName() == newClient.GetName() 
+                    && actualClient.GetStylistId() == newClient.GetStylistId())
+                {
+                    clientFound = true;
+                    break;
+                }
+            }
 
             //Assert
-            CollectionAssert.AreEqual(testList, result);
+            Assert.IsTrue(clientFound);
         }
 
         [TestMethod]
-        public void GetClientsById_ReturnsClientList_Client()
+        public void Find_ReturnsClientWithTheMatchingId()
         {
             //Arrange
-            string name = "Bryan";
+            string clientName = "Client3";
+            int stylistId = 1;
+            ClientClass expectedClient = new ClientClass(clientName, stylistId);
 
             //Act
-            StylistClass.Save(name);
-            StylistClass Client = StylistClass.FindById(1);
-            int id = 0;
-            id = Client.GetId();
-            ClientClass ClientTwo = new ClientClass(name, id);
-            ClientTwo.Save();
-            int idTwo = ClientTwo.GetId();
-            var tempList = ClientClass.GetClientById(idTwo);
+            expectedClient.Save();
+            ClientClass actualClient = ClientClass.Find(expectedClient.GetId());
 
-            var Client = tempList;
-
-            //Assert
-            Assert.IsInstanceOfType(Client, typeof(ClientClass));
+            // Assert
+            Assert.IsNotNull(actualClient);
+            Assert.IsTrue(expectedClient.GetId() == actualClient.GetId());
+            Assert.IsTrue(expectedClient.GetName() == actualClient.GetName());
         }
 
         [TestMethod]
-        public void DeleteClientsByStylistId_DeletesClientsByStylistId_ClientList()
+        public void Delete_RemovesTheClientFromTheDatabase()
         {
             //Arrange
-            List<ClientClass> tempList = new List<ClientClass> {};
-            string name = "Bryan";
-            int id = 1;
-            ClientClass Client = new ClientClass(name, id);
+            string clientName = "Client4";
+            int stylistId = 1;
+            ClientClass expectedClient = new ClientClass(clientName, stylistId);
 
             //Act
-            StylistClass.Save(name);
-            Client.Save();
-            ClientClass.DeleteClientsByStylistId(1);
-            List<ClientClass> tempListThree = ClientClass.GetAll();
+            expectedClient.Save();
+            expectedClient.Delete(expectedClient.GetId());
+            ClientClass deletedClient = ClientClass.Find(expectedClient.GetId());
 
-            //Assert
-            CollectionAssert.AreEqual(tempList, tempListThree);
+            // Assert
+            Assert.IsNull(deletedClient);
         }
     }
 }

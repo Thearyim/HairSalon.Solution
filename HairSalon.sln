@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HairSalon", "HairSalon\HairSalon.csproj", "{EBF195ED-01A6-4F5D-8F2B-549D30BD342B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HairSalonTests", "HairSalon.Tests\HairSalonTests.csproj", "{B9A82863-4BA1-4599-AFBE-3BDEF72B9285}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{EBF195ED-01A6-4F5D-8F2B-549D30BD342B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBF195ED-01A6-4F5D-8F2B-549D30BD342B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBF195ED-01A6-4F5D-8F2B-549D30BD342B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9A82863-4BA1-4599-AFBE-3BDEF72B9285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9A82863-4BA1-4599-AFBE-3BDEF72B9285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9A82863-4BA1-4599-AFBE-3BDEF72B9285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9A82863-4BA1-4599-AFBE-3BDEF72B9285}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
