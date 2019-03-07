@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 04, 2019 at 01:38 AM
+-- Generation Time: Mar 07, 2019 at 10:52 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.10
 
@@ -80,7 +80,7 @@ ALTER TABLE `client`
 -- AUTO_INCREMENT for table `stylist`
 --
 ALTER TABLE `stylist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
