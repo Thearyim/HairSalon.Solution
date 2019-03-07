@@ -1,7 +1,9 @@
 /bin
 /obj
+*.sln
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
 .vs/
+/Properties
