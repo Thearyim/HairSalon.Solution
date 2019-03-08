@@ -1,5 +1,6 @@
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel;
 using Microsoft.Extensions.Configuration;
 
 namespace HairSalon
@@ -11,11 +12,9 @@ namespace HairSalon
       var host = new WebHostBuilder()
         .UseKestrel()
         .UseContentRoot(Directory.GetCurrentDirectory())
-        .UseConfiguration(new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("hosting.json").Build())
         .UseIISIntegration()
         .UseStartup<Startup>()
+        .UseUrls("http://localhost:5000/")
         .Build();
 
       host.Run();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 08, 2019 at 08:55 PM
+-- Generation Time: Mar 07, 2019 at 10:52 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.10
 
@@ -21,8 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `hairsalon`
 --
-CREATE DATABASE IF NOT EXISTS `hairsalon_test` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `hairsalon_test`;
+CREATE DATABASE IF NOT EXISTS `hairsalon` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `hairsalon`;
 
 -- --------------------------------------------------------
 
@@ -33,20 +33,8 @@ USE `hairsalon_test`;
 DROP TABLE IF EXISTS `client`;
 CREATE TABLE `client` (
   `id` int(11) NOT NULL,
-  `stylist_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `specialty`
---
-
-DROP TABLE IF EXISTS `specialty`;
-CREATE TABLE `specialty` (
-  `id` int(11) NOT NULL,
-  `description` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `stylist_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -58,31 +46,18 @@ CREATE TABLE `specialty` (
 DROP TABLE IF EXISTS `stylist`;
 CREATE TABLE `stylist` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `stylists_specialties`
+-- Indexes for dumped tables
 --
-
-DROP TABLE IF EXISTS `stylists_specialties`;
-CREATE TABLE `stylists_specialties` (
-  `stylist_id` int(11) NOT NULL,
-  `specialty_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for table `client`
 --
 ALTER TABLE `client`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `specialty`
---
-ALTER TABLE `specialty`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -99,19 +74,13 @@ ALTER TABLE `stylist`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `specialty`
---
-ALTER TABLE `specialty`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `stylist`
 --
 ALTER TABLE `stylist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

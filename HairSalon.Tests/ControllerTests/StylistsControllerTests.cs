@@ -5,13 +5,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace HairSalon.Tests
 {
     [TestClass]
-    public class StylistControllerTest
+    public class StylistsControllerTest
     {
         [TestMethod]
         public void Index_ReturnsCorrectView_True()
         {
             //Arrange
-           StylistController controller = new StylistController();
+           StylistsController controller = new StylistsController();
 
             //Act
             ActionResult indexView = controller.Index();
@@ -24,7 +24,7 @@ namespace HairSalon.Tests
         public void New_ReturnsCorrectView_True()
         {
             //Arrange
-           StylistController controller = new StylistController();
+           StylistsController controller = new StylistsController();
 
             //Act
             ActionResult newView = controller.NewStylist();
@@ -37,7 +37,7 @@ namespace HairSalon.Tests
         public void Show_ReturnsCorrectView_True()
         {
             //Arrange
-           StylistController controller = new StylistController();
+           StylistsController controller = new StylistsController();
 
             //Act
             ActionResult newView = controller.ShowStylist(1);
@@ -50,10 +50,10 @@ namespace HairSalon.Tests
         public void CreateStylish_ReturnsCorrectView_True()
         {
             //Arrange
-            StylistController controller = new StylistController();
+            StylistsController controller = new StylistsController();
 
             //Act
-            ActionResult newView = controller.CreateStylist("Sophie", "Color");
+            ActionResult newView = controller.Create("Sophie");
 
             //Assert
             Assert.IsInstanceOfType(newView, typeof(RedirectToActionResult));
@@ -63,7 +63,7 @@ namespace HairSalon.Tests
         //public void DeleteAllStylists_ReturnsCorrectView_True()
         //{
         //    //Arrange
-        //    StylistController controller = new StylistController();
+        //    StylistsController controller = new StylistsController();
 
         //    //Act
         //    ActionResult newView = controller.DeleteAll();

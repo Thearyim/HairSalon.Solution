@@ -6,13 +6,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace HairSalon.Tests
 {
     [TestClass]
-    public class StylishTest
+    public class StylistTests
     {
         [TestMethod]
-        public void GetName_ReturnsName_StylistString()
+        public void GetName_ReturnsTheExpectedStylistName()
         {
             //Arrange
-            StylistClass stylist = new StylistClass("Stylist1", "Cut");
+            StylistClass stylist = new StylistClass("Stylist1");
 
             //Act
             string newName = stylist.GetName();
@@ -22,10 +22,10 @@ namespace HairSalon.Tests
         }
 
         [TestMethod]
-        public void GetId_ReturnsTheExpectedId_Int()
+        public void GetId_ReturnsTheExpectedStylistId()
         {
             //Arrange
-            StylistClass stylist = new StylistClass(1, "Stylist2", "Cut");
+            StylistClass stylist = new StylistClass(1, "Stylist2");
 
             //Act
             int stylishId = stylist.GetId();
@@ -35,10 +35,30 @@ namespace HairSalon.Tests
         }
 
         [TestMethod]
-        public void GetAll_ReturnsEmptyListFromDatabase_StylistClassList()
+        public void GetSpecialties_ReturnsTheExpectedSetOfSpecialties()
         {
             //Arrange
-            StylistClass anyStylist = new StylistClass("Stylist3", "Cut");
+            List<SpecialtyClass> expectedSpecialties = new List<SpecialtyClass>
+            {
+                new SpecialtyClass("Specialty1"),
+                new SpecialtyClass("Specialty2")
+            };
+
+            StylistClass stylist = new StylistClass("Stylist2", expectedSpecialties);
+
+            //Act
+            List<SpecialtyClass> actualSpecialties = stylist.GetSpecialties();
+
+            //Assert
+            Assert.IsTrue(expectedSpecialties.Count == actualSpecialties.Count);
+            CollectionAssert.AreEqual(expectedSpecialties, actualSpecialties);
+        }
+
+        [TestMethod]
+        public void GetAll_ReturnsAllStylistRecordsInTheDatabase()
+        {
+            //Arrange
+            StylistClass anyStylist = new StylistClass("Stylist3");
 
             //Act
             anyStylist.Save();
@@ -51,54 +71,51 @@ namespace HairSalon.Tests
         }
         
         [TestMethod]
-        public void Save_SavesToDatabase_StylistList()
+        public void Save_CreatesANewStylistRecordInTheDatabase()
         {
             //Arrange
-            string stylishName = "Stylist4";
-            string stylishType = "Cut";
-            StylistClass stylish = new StylistClass(stylishName, stylishType);
+            string stylistName = "Stylist4";
+            StylistClass stylist = new StylistClass(stylistName);
 
             //Act
-            stylish.Save();
+            stylist.Save();
             List<StylistClass> result = StylistClass.GetAll();
 
             //Assert
             Assert.IsTrue(result.Count > 0);
-            Assert.IsTrue(result.Any(r => r.GetName() == stylishName));
+            Assert.IsTrue(result.Any(r => r.GetName() == stylistName));
         }
 
         [TestMethod]
-        public void FindById_ReturnsExpectedStylist_Stylist()
+        public void FindById_ReturnsTheExpectedStylistRecord()
         {
             //Arrange
-            string stylishName = "Stylist5";
-            string stylishType = "Cut";
-            StylistClass expectedStylish = new StylistClass(stylishName, stylishType);
+            string stylistName = "Stylist5";
+            StylistClass expectedStylist = new StylistClass(stylistName);
 
             //Act
-            expectedStylish.Save();
-            StylistClass actualStylist = StylistClass.Find(expectedStylish.GetId());
+            expectedStylist.Save();
+            StylistClass actualStylist = StylistClass.Find(expectedStylist.GetId());
 
             // Assert
             Assert.IsNotNull(actualStylist);
         }
 
         [TestMethod]
-        public void Delete_DeletesStylistById_StylistList()
+        public void Delete_PermanentlyRemovesTheStylistRecordFromTheDatabase()
         {
             //Arrange
-            string stylishName = "Stylist6";
-            string stylishType = "Cut";
-            StylistClass expectedStylish = new StylistClass(stylishName, stylishType);
+            string stylistName = "Stylist6";
+            StylistClass expectedStylist = new StylistClass(stylistName);
 
             //Act
-            expectedStylish.Save();
-            StylistClass actualStylist = StylistClass.Find(expectedStylish.GetId());
+            expectedStylist.Save();
+            StylistClass actualStylist = StylistClass.Find(expectedStylist.GetId());
 
-            actualStylist.Delete(expectedStylish.GetId());
+            actualStylist.Delete(expectedStylist.GetId());
 
             // Assert
-            StylistClass deletedStylist = StylistClass.Find(expectedStylish.GetId());
+            StylistClass deletedStylist = StylistClass.Find(expectedStylist.GetId());
             Assert.IsNull(deletedStylist);
         }     
     }
