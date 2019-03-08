@@ -16,15 +16,15 @@ namespace HairSalon.Controllers
             List<ClientClass> stylistClients = foundStylist.GetClients();
             model.Add("clients", stylistClients);
             model.Add("stylist", foundStylist);
-            return View("Stylist-Show", model);
+            return View("Stylist-Client-Show", model);
         }
 
         [HttpPost("/stylists")]
-        public ActionResult Create(string stylistName, string stylistType)
+        public ActionResult Create(string stylistName)
         {
-            StylistClass newStylist = new StylistClass(stylistName, stylistType);
+            StylistClass newStylist = new StylistClass(stylistName);
             newStylist.Save();
-            return RedirectToAction("Stylist-Index");
+            return RedirectToAction("Index");
         }
 
         [HttpPost("/stylists/{id}/delete")]
@@ -93,7 +93,7 @@ namespace HairSalon.Controllers
                 model.Add("clients", stylistClients);
             }
 
-            return View("Stylist-Show", model);
+            return View("Stylist-Client-Show", model);
         }
 
         [HttpGet("/stylists/{stylistId}/clients/{clientId}")]

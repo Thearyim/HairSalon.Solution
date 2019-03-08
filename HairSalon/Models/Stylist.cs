@@ -8,19 +8,16 @@ namespace HairSalon.Models
     {
         private int _id;
         private string _name;
-        private string _type;
 
-    public StylistClass(string name, string type)
+    public StylistClass(string name)
         {
             _name = name;
-            _type = type;
         }
 
-        public StylistClass(int id, string name, string type)
+        public StylistClass(int id, string name)
         {
             _id = id;
             _name = name;
-            _type = type;
         }
 
         public int GetId()
@@ -31,11 +28,6 @@ namespace HairSalon.Models
         public string GetName()
         {
             return _name;
-        }
-
-        public string GetStylistType()
-        {
-            return _type;
         }
 
         public static void ClearAll()
@@ -106,15 +98,13 @@ namespace HairSalon.Models
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             int stylistId = 0;
             string stylistName = "";
-            string stylistType = "";
             StylistClass newStylist = null;
 
             while (rdr.Read())
             {
                 stylistId = rdr.GetInt32(0);
                 stylistName = rdr.GetString(1);
-                stylistType = rdr.GetString(2);
-                newStylist = new StylistClass(stylistId, stylistName, stylistType);
+                newStylist = new StylistClass(stylistId, stylistName);
             }
 
             conn.Close();
@@ -135,10 +125,9 @@ namespace HairSalon.Models
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             while(rdr.Read())
             {
-                int StylistId = rdr.GetInt32(0);
-                string StylistName = rdr.GetString(1);
-                string StylistType = rdr.GetString(2);
-                StylistClass newStylist = new StylistClass(StylistId, StylistName, StylistType);
+                int stylistId = rdr.GetInt32(0);
+                string stylistName = rdr.GetString(1);
+                StylistClass newStylist = new StylistClass(stylistId, stylistName);
                 allStylists.Add(newStylist);
             }
             conn.Close();
@@ -182,15 +171,11 @@ namespace HairSalon.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO stylist (name, type) VALUES (@name, @type);";
+            cmd.CommandText = @"INSERT INTO stylist (name) VALUES (@name);";
             MySqlParameter name = new MySqlParameter();
             name.ParameterName = "@name";
             name.Value = this._name;
-            MySqlParameter stylistType = new MySqlParameter();
-            stylistType.ParameterName = "@type";
-            stylistType.Value = this._type;
             cmd.Parameters.Add(name);
-            cmd.Parameters.Add(stylistType);
             cmd.ExecuteNonQuery();
             _id = (int) cmd.LastInsertedId;
             conn.Close();
