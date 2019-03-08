@@ -8,16 +8,19 @@ namespace HairSalon.Models
     {
         private int _id;
         private string _name;
+        private List<SpecialtyClass> _specialties;
 
-    public StylistClass(string name)
+    public StylistClass(string name, List<SpecialtyClass> specialties = null)
         {
             _name = name;
+            _specialties = specialties;
         }
 
-        public StylistClass(int id, string name)
+        public StylistClass(int id, string name, List<SpecialtyClass> specialties = null)
         {
             _id = id;
             _name = name;
+            _specialties = specialties;
         }
 
         public int GetId()
@@ -28,6 +31,11 @@ namespace HairSalon.Models
         public string GetName()
         {
             return _name;
+        }
+        
+        public List<SpecialtyClass> GetSpecialties()
+        {
+            return _specialties;
         }
 
         public static void ClearAll()
@@ -121,7 +129,8 @@ namespace HairSalon.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM stylist;";
+            cmd.CommandText = @"SELECT stylists.id, specialty.description FROM stylists 
+            Join stylists_specialties ON stylist.id = stylists_specialties.stylist_id;";
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             while(rdr.Read())
             {

@@ -18,29 +18,37 @@
 
     | Input               | Output              |
     | :--------------------------: | :----------------------------: |
-    | Add a new stylist             | Add a Stylist Below            |
-    | Stylist Name: Sophie, Stylist Type: Color | Current Sylists: Sophie, Details: Color |
+    | Add a new stylist, Add stylist specialties | Add a Stylist Below |
+    | Stylist Name: Sophie, Specialties: Cut, Color | Current Sylists: Sophie, Specialties: Cut, Color |
   
-2. User can add clients to each stylist
+2. User can add clients to each stylist.
 
     _Example:_
 
     | Input                 | Output                  |
     | :--------------------------: | :----------------------------: |
     | Add a new client             | Add a Client to Sophie         |
-    | Client Name: Sonia, Gender .Female .Male | Stylist: Sophie, Client list for this stylist: Sonia |
+    | Client Name: Sonia, Gender .Female .Male | Stylist: Sophie, Client list for this stylist: Sonia, Gender: Female |
 
-3. User can delete stylists and clients. When deleting a Stylist, the corresponding clients will also be deleted automatically.
+3. User can delete stylists and clients (all and single).
 
     _Example:_
 
     | Input                 | Output                  |
     | :--------------------------: | :----------------------------: |
-    | Stylist: Sophie, Delete      | Stylist Removed                | 
-    | Client: Sonia, Delete        | Client Removed                 |
+    | Stylist: Sophie, Delete | Stylist Removed | 
+    | Client: Sonia, Delete | Client Removed |
+    | Stylist: Sophie, Jacob, Delete All | All Stylists Removed | 
+    | Client: Sonia, Karen, Delete All | All Clients Removed |
 
+4. User can edit stylists name.
 
+    _Example:_
 
+    | Input                 | Output                  |
+    | :--------------------------: | :----------------------------: |
+    | Stylist: Sophie, Edit Stylist | Stylist Name Edited | 
+    | Stylist: Bryan, Update | Stylist: Bryan |
 
 ## Setup/Installation Requirements
 **.NET Core is Required for this project to function.**

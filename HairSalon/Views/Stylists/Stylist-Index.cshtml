@@ -12,9 +12,17 @@
             <h3>
                 <a href='/stylists/@stylist.GetId()'>
                     @stylist.GetName()
-                </a>
-            </h3>
-            
+                </a> <br/>
+                     <h4>Specialties:</h4>
+
+                     <ul>
+                         @foreach (var specialty in Model.GetSpecialties())
+                         {
+                            <li>@specialty.GetDescription()</li>
+                         }
+                      </ul>
+</h3>
+
             <form action='/stylists/@stylist.GetId()/delete' method='post'>
                 <button type='submit'>Delete</button>
             </form>
