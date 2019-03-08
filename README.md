@@ -12,10 +12,21 @@
 
 ## Specs
 
-1. User can add stylists and clients to the database.
-   
+1. User can add stylists to the database.
+    _Example:_
+    Input:                Output:
+    Add a new stylist     Add a Stylist Below
+    Stylist Name: Sophie  Current Sylists: Sophie
+    Stylist Type: Color
+2. User can add clients to each stylist
+    _Example:_
+    Input:                 Output:
+    Add a new client       Add a Client below
+    
+
+
 2. User should then be able to add the clients as a many to one relationship within the database, allowing for the client to be paired with a stylist.
-   
+
 3. User can delete stylists and clients. When deleting a Stylist, the corresponding clients will also be deleted automatically.
 
 ## Setup/Installation Requirements
@@ -31,25 +42,30 @@ https://www.mono-project.com/
     "$git clone https://github.com/Thearyim/HairSalon.Solution"
 
 2. Setup the Database. Import the Database using the SQL files and command shown below:
-    * > Production Database: 
-      > C:\Source\HairSalon.Solution> mysql -u root -p db_name < **theary_im.sql**
 
-    * > Test Database: 
-      > C:\Source\HairSalon.Solution> mysql -u root -p db_name < **theary_im_test.sql**
+* > CREATE DATABASE hair_salon;
+* > USE hair_salon;
+* > CREATE TABLE stylist (id serial PRIMARY KEY, name VARCHAR(255));
+* > CREATE TABLE client (id serial PRIMARY KEY, name VARCHAR(255)), stylist_id INT;
+
+* > CREATE DATABASE hair_salon_test;
+* > USE hair_salon_test;
+* > CREATE TABLE stylist (id serial PRIMARY KEY, name VARCHAR(255));
+* > CREATE TABLE client (id serial PRIMARY KEY, name VARCHAR(255)), stylist_id INT;
 
 3. Change into the work directory: $ cd HairSalon.Solution
-   
+
 4. To edit the project, open the project in your preferred text editor.
-   
+
 5.   To run the tests, use these commands:
      * $ cd HairSalon.Solution/HairSalon.Tests
      * $ dotnet test
-  
+
 6.  To run the program, first navigate to the location of the HairSalon.cs file then compile and execute:
     * $ cd HairSalon.Solution/HairSalon
     * $ dotnet build
     * $ dotnet run
-  
+
 7. Navigate to http://localhost:5000 in your browser to view the splashpage.
 
 

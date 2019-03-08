@@ -7,8 +7,21 @@
 
 @foreach (var stylist in Model)
 {
-  <h3>Click on stylist to see client list: <a href='/stylists/@stylist.GetId()'>@stylist.GetName()</a></h3>
+  <ul>
+    <li>
+      <h3>
+        <a href='/stylists/@stylist.GetId()'>
+        @stylist.GetName()</a>
+      </h3>
+
+      <form action='/stylists/@stylist.GetId()/stylists/@stylist.GetId()/delete' method='post'>
+        <button type='submit'>Delete</button>
+      </form>
+      <span>Speciality: @stylist.GetStylistType()</span>
+    </li>
+  </ul>
 }
 
+<h3>Click on stylist to see client list.</h3>
 <h3><a href='/stylists/new'>Add a new stylist</a></h3>
 <h3><a href='/'>Return home</a></h3>
