@@ -8,3 +8,4 @@ C:\Users\Theary\OneDrive\Source\bootcamp\C#\HairSalon.Solution\HairSalon\obj\Deb
 C:\Users\Theary\OneDrive\Source\bootcamp\C#\HairSalon.Solution\HairSalon\obj\Debug\netcoreapp1.1\HairSalon.AssemblyInfo.cs
 C:\Users\Theary\OneDrive\Source\bootcamp\C#\HairSalon.Solution\HairSalon\obj\Debug\netcoreapp1.1\HairSalon.dll
 C:\Users\Theary\OneDrive\Source\bootcamp\C#\HairSalon.Solution\HairSalon\obj\Debug\netcoreapp1.1\HairSalon.pdb
+C:\Users\Theary\OneDrive\Source\bootcamp\C#\HairSalon.Solution\HairSalon\obj\Debug\netcoreapp1.1\HairSalon.csprojAssemblyReference.cache

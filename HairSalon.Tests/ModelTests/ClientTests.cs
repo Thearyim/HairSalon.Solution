@@ -8,12 +8,6 @@ namespace HairSalon.Tests
     [TestClass]
     public class ClientTest
     {
-        [ClassInitialize]
-        public static void InitializeClass(TestContext context)
-        {
-            TestSetup.InitializeDatabase();
-        }
-
         [TestMethod]
         public void GetName_ReturnsName_String()
         {

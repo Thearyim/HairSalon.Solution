@@ -8,6 +8,12 @@ namespace HairSalon.Tests
     [TestClass]
     public class StylistTests
     {
+        [ClassInitialize]
+        public static void InitializeTests(TestContext context)
+        {
+            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=hairsalon_test;";
+        }
+
         [TestMethod]
         public void GetName_ReturnsTheExpectedStylistName()
         {
@@ -52,6 +58,17 @@ namespace HairSalon.Tests
             //Assert
             Assert.IsTrue(expectedSpecialties.Count == actualSpecialties.Count);
             CollectionAssert.AreEqual(expectedSpecialties, actualSpecialties);
+        }
+
+        [TestMethod]
+        public void ClearAll_RemovesAllStylistsFromTheDatabase()
+        {
+            //Act
+            StylistClass.ClearAll();
+            List<StylistClass> allStylists = StylistClass.GetAll();
+
+            //Assert
+            Assert.IsTrue(allStylists.Count == 0);
         }
 
         [TestMethod]

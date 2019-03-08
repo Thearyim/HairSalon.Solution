@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 08, 2019 at 08:55 PM
+-- Generation Time: Mar 08, 2019 at 09:33 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.10
 
@@ -21,8 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `hairsalon`
 --
-CREATE DATABASE IF NOT EXISTS `hairsalon_test` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `hairsalon_test`;
+CREATE DATABASE IF NOT EXISTS `hairsalon` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `hairsalon`;
 
 -- --------------------------------------------------------
 
@@ -33,7 +33,6 @@ USE `hairsalon_test`;
 DROP TABLE IF EXISTS `client`;
 CREATE TABLE `client` (
   `id` int(11) NOT NULL,
-  `stylist_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -64,6 +63,18 @@ CREATE TABLE `stylist` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `stylists_clients`
+--
+
+DROP TABLE IF EXISTS `stylists_clients`;
+CREATE TABLE `stylists_clients` (
+  `stylist_id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `stylists_specialties`
 --
 
@@ -72,6 +83,10 @@ CREATE TABLE `stylists_specialties` (
   `stylist_id` int(11) NOT NULL,
   `specialty_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indexes for dumped tables
+--
 
 --
 -- Indexes for table `client`
@@ -105,7 +120,7 @@ ALTER TABLE `client`
 -- AUTO_INCREMENT for table `specialty`
 --
 ALTER TABLE `specialty`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `stylist`
