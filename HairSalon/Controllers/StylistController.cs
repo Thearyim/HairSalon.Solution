@@ -32,7 +32,7 @@ namespace HairSalon.Controllers
         {
             StylistClass selectedStylist = StylistClass.Find(id);
             selectedStylist.Delete(id);
-            return RedirectToAction("Stylist-Index");
+            return RedirectToAction("Stylist-Delete");
         }
 
         [HttpPost("/stylists/{stylistId}/clients/{clientId}/delete")]

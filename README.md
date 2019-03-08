@@ -13,21 +13,34 @@
 ## Specs
 
 1. User can add stylists to the database.
+
     _Example:_
-    Input:                Output:
-    Add a new stylist     Add a Stylist Below
-    Stylist Name: Sophie  Current Sylists: Sophie
-    Stylist Type: Color
+
+    | Input               | Output              |
+    | :--------------------------: | :----------------------------: |
+    | Add a new stylist             | Add a Stylist Below            |
+    | Stylist Name: Sophie, Stylist Type: Color | Current Sylists: Sophie, Details: Color |
+  
 2. User can add clients to each stylist
+
     _Example:_
-    Input:                 Output:
-    Add a new client       Add a Client below
-    
 
-
-2. User should then be able to add the clients as a many to one relationship within the database, allowing for the client to be paired with a stylist.
+    | Input                 | Output                  |
+    | :--------------------------: | :----------------------------: |
+    | Add a new client             | Add a Client to Sophie         |
+    | Client Name: Sonia, Gender .Female .Male | Stylist: Sophie, Client list for this stylist: Sonia |
 
 3. User can delete stylists and clients. When deleting a Stylist, the corresponding clients will also be deleted automatically.
+
+    _Example:_
+
+    | Input                 | Output                  |
+    | :--------------------------: | :----------------------------: |
+    | Stylist: Sophie, Delete      | Stylist Removed                | 
+    | Client: Sonia, Delete        | Client Removed                 |
+
+
+
 
 ## Setup/Installation Requirements
 **.NET Core is Required for this project to function.**
