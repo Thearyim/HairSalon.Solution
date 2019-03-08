@@ -6,13 +6,14 @@
 <ul>
     @foreach (var client in @Model["clients"])
     {
-        <li>@client.GetName()
-            <form action='/stylists/@Model["stylist"].GetId()/clients/@client.GetId()/delete' method='post'>
-                <button type='submit'>Delete</button>
-            </form>
-        </li>
+      <li>@client.GetName()
+          <form action='/stylists/@Model["stylist"].GetId()/clients/@client.GetId()/delete' method='post'>
+              <button type='submit'>Delete</button>
+          </form>
+      </li>
     }
 </ul>
+
 <p><a href='/stylists/@Model["stylist"].GetId()/clients/new'>Add a new client</a></p>
 <p><a href='/stylists'>Return to list of stylist</a></p>
 <p><a href='/'>Return to home</a></p>
