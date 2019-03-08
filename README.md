@@ -12,7 +12,7 @@
 
 ## Specs
 
-1. User can add stylists to the database.
+1. User can add stylists and stylist's specialties to the database.
 
     _Example:_
 
@@ -28,16 +28,16 @@
     | Input                 | Output                  |
     | :--------------------------: | :----------------------------: |
     | Add a new client             | Add a Client to Sophie         |
-    | Client Name: Sonia, Gender .Female .Male | Stylist: Sophie, Client list for this stylist: Sonia, Gender: Female |
+    | Client Name: Sonia, Gender .Female .Male .Member .NonMember | Stylist: Sophie, Client list for this stylist: Sonia, Gender: Female, Membership: Member |
 
 3. User can delete stylists and clients (all and single).
 
     _Example:_
 
-    | Input                 | Output                  |
-    | :--------------------------: | :----------------------------: |
-    | Stylist: Sophie, Delete | Stylist Removed | 
-    | Client: Sonia, Delete | Client Removed |
+    | Input                | Output             |
+    | :------------------: | :----------------: |
+    | Stylist: Sophie, Delete Stylist | Stylist Removed | 
+    | Client: Sonia, Delete Client | Client Removed |
     | Stylist: Sophie, Jacob, Delete All | All Stylists Removed | 
     | Client: Sonia, Karen, Delete All | All Clients Removed |
 
@@ -46,9 +46,29 @@
     _Example:_
 
     | Input                 | Output                  |
-    | :--------------------------: | :----------------------------: |
+    | :------------------------: | :----------------------------: |
     | Stylist: Sophie, Edit Stylist | Stylist Name Edited | 
     | Stylist: Bryan, Update | Stylist: Bryan |
+
+5. 4. User can edit clients information.
+
+    _Example:_
+
+    | Input                 | Output                  |
+    | :------------------------: | :----------------------------: |
+    | Client: Sonia, Edit Client Information | Client Information Edited | 
+    | Client: Sonia, Update | Client: Sonia, Gender: Female, Membership: NonMember |
+
+1. User can add stylists to a specialty.
+
+    _Example:_
+
+    | Input               | Output              |
+    | :--------------------------: | :----------------------------: |
+    | Add a new stylist to this specialty | Add a Stylist Below |
+    | Specialties: Cut, Stylist Name: Sophie | Stylists for this specialties: Sophie|
+ 
+
 
 ## Setup/Installation Requirements
 **.NET Core is Required for this project to function.**
