@@ -14,58 +14,46 @@
 
 1. User can add stylists and stylist's specialties to the database.
 
-    _Example:_
-
-    | Input               | Output              |
-    | :--------------------------: | :----------------------------: |
-    | Add a new stylist, Add stylist specialties | Add a Stylist Below |
+    | Example Input                                 | Example Output                  |
+    | :-------------------------------------------: | :-----------------------------: |
+    | Add a new stylist, Add stylist specialties    | Add a Stylist Below             |
     | Stylist Name: Sophie, Specialties: Cut, Color | Current Sylists: Sophie, Specialties: Cut, Color |
   
 2. User can add clients to each stylist.
 
-    _Example:_
-
-    | Input                 | Output                  |
-    | :--------------------------: | :----------------------------: |
-    | Add a new client             | Add a Client to Sophie         |
+    | Example Input                                               | Example Output                  |
+    | :---------------------------------------------------------: | :-----------------------------: |
+    | Add a new client                                            | Add a Client to Sophie         |
     | Client Name: Sonia, Gender .Female .Male .Member .NonMember | Stylist: Sophie, Client list for this stylist: Sonia, Gender: Female, Membership: Member |
 
 3. User can delete stylists and clients (all and single).
 
-    _Example:_
-
-    | Input                | Output             |
-    | :------------------: | :----------------: |
-    | Stylist: Sophie, Delete Stylist | Stylist Removed | 
-    | Client: Sonia, Delete Client | Client Removed |
-    | Stylist: Sophie, Jacob, Delete All | All Stylists Removed | 
-    | Client: Sonia, Karen, Delete All | All Clients Removed |
+    | Example Input                          | Example Output                  |
+    | :------------------------------------: | :-----------------------------: |
+    | Stylist: Sophie, Delete Stylist        | Stylist Removed | 
+    | Client: Sonia, Delete Client           | Client Removed |
+    | Stylist: Sophie, Jacob, Delete All     | All Stylists have been Removed | 
+    | Client: Sonia, Karen, Delete All       | All Clients have been Removed |
 
 4. User can edit stylists name.
 
-    _Example:_
+    | Example Input                                        | Example Output                  |
+    | :--------------------------------------------------: | :-----------------------------: |
+    | Stylist: Sophie, Edit Stylist Name                   | Stylist Name Edited             | 
+    | Stylist: Alexandra, Update                           | Stylist: Alexandra              |
 
-    | Input                 | Output                  |
-    | :------------------------: | :----------------------------: |
-    | Stylist: Sophie, Edit Stylist | Stylist Name Edited | 
-    | Stylist: Bryan, Update | Stylist: Bryan |
-
-5. 4. User can edit clients information.
-
-    _Example:_
-
-    | Input                 | Output                  |
-    | :------------------------: | :----------------------------: |
+5. User can edit clients information.
+   
+    | Example Input                          | Example Output                  |
+    | :------------------------------------: | :-----------------------------: |
     | Client: Sonia, Edit Client Information | Client Information Edited | 
-    | Client: Sonia, Update | Client: Sonia, Gender: Female, Membership: NonMember |
+    | Client: Sonia, Update                  | Client: Sonia, Gender: Female, Membership: NonMember |
 
 1. User can add stylists to a specialty.
 
-    _Example:_
-
-    | Input               | Output              |
-    | :--------------------------: | :----------------------------: |
-    | Add a new stylist to this specialty | Add a Stylist Below |
+    | Example Input                          | Example Output                  |
+    | :------------------------------------: | :-----------------------------: |
+    | Add a new stylist to this specialty    | Add a Stylist Below |
     | Specialties: Cut, Stylist Name: Sophie | Stylists for this specialties: Sophie|
  
 
@@ -84,28 +72,28 @@ https://www.mono-project.com/
 
 2. Setup the Database. Import the Database using the SQL files and command shown below:
 
-* > CREATE DATABASE hair_salon;
-* > USE hair_salon;
-* > CREATE TABLE stylist (id serial PRIMARY KEY, name VARCHAR(255));
-* > CREATE TABLE client (id serial PRIMARY KEY, name VARCHAR(255)), stylist_id INT;
+  * > CREATE DATABASE hair_salon;
+  * > USE hair_salon;
+  * > CREATE TABLE stylist (id serial PRIMARY KEY, name VARCHAR(255));
+  * > CREATE TABLE client (id serial PRIMARY KEY, name VARCHAR(255)), stylist_id INT;
 
-* > CREATE DATABASE hair_salon_test;
-* > USE hair_salon_test;
-* > CREATE TABLE stylist (id serial PRIMARY KEY, name VARCHAR(255));
-* > CREATE TABLE client (id serial PRIMARY KEY, name VARCHAR(255)), stylist_id INT;
+  * > CREATE DATABASE hair_salon_test;
+  * > USE hair_salon_test;
+  * > CREATE TABLE stylist (id serial PRIMARY KEY, name VARCHAR(255));
+  * > CREATE TABLE client (id serial PRIMARY KEY, name VARCHAR(255)), stylist_id INT;
 
 3. Change into the work directory: $ cd HairSalon.Solution
 
 4. To edit the project, open the project in your preferred text editor.
 
 5.   To run the tests, use these commands:
-     * $ cd HairSalon.Solution/HairSalon.Tests
-     * $ dotnet test
+    * > $ cd HairSalon.Solution/HairSalon.Tests
+    * > $ dotnet test
 
 6.  To run the program, first navigate to the location of the HairSalon.cs file then compile and execute:
-    * $ cd HairSalon.Solution/HairSalon
-    * $ dotnet build
-    * $ dotnet run
+   * > $ cd HairSalon.Solution/HairSalon
+   * > $ dotnet build
+   * > $ dotnet run
 
 7. Navigate to http://localhost:5000 in your browser to view the splashpage.
 
