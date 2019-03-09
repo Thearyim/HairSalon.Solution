@@ -49,11 +49,6 @@ namespace HairSalon.Models
             return _specialties;
         }
 
-        public void SetSpecialties(List<SpecialtyClass> specialties)
-        {
-            _specialties = new List<SpecialtyClass>(specialties);
-        }
-
         public void AddClient(int clientId)
         {
             MySqlConnection conn = DB.Connection();
@@ -79,7 +74,7 @@ namespace HairSalon.Models
             }
         }
 
-        public static void ClearAll()
+        public static void DeleteAll()
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
@@ -93,29 +88,6 @@ namespace HairSalon.Models
                   DELETE FROM stylist;";
 
             cmd.ExecuteNonQuery();
-            conn.Close();
-            if (conn != null)
-            {
-                conn.Dispose();
-            }
-        }
-        
-        public void Edit(string newStylist)
-        {
-            MySqlConnection conn = DB.Connection();
-            conn.Open();
-            var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"UPDATE stylist SET name = @newName WHERE id = @searchId;";
-            MySqlParameter seachId = new MySqlParameter();
-            seachId.ParameterName = "@searchId";
-            seachId.Value = _id;
-            cmd.Parameters.Add(seachId);
-            MySqlParameter name = new MySqlParameter();
-            name.ParameterName = "@newName";
-            name.Value = newStylist;
-            cmd.Parameters.Add(name);
-            cmd.ExecuteNonQuery();
-            _name = newStylist;
             conn.Close();
             if (conn != null)
             {
@@ -137,7 +109,7 @@ namespace HairSalon.Models
                   DELETE FROM stylist WHERE id = @thisId;";
 
             MySqlParameter thisId = new MySqlParameter();
-            thisId.ParameterName = "thisId";
+            thisId.ParameterName = "@thisId";
             thisId.Value = id;
             cmd.Parameters.Add(thisId);
             cmd.ExecuteNonQuery();
@@ -301,14 +273,31 @@ namespace HairSalon.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO stylist (name) VALUES (@name);";
+            if (_id > 0)
+            {
+                cmd.CommandText = @"UPDATE stylist SET name = @name WHERE id = @searchId;";
+                MySqlParameter name = new MySqlParameter();
+                name.ParameterName = "@name";
+                name.Value = this._name;
+                cmd.Parameters.Add(name);
 
-            MySqlParameter name = new MySqlParameter();
-            name.ParameterName = "@name";
-            name.Value = this._name;
-            cmd.Parameters.Add(name);
+                MySqlParameter stylistId = new MySqlParameter();
+                stylistId.ParameterName = "@searchId";
+                stylistId.Value = this._id;
+                cmd.Parameters.Add(stylistId);
+            }
+            else
+            {
+                cmd.CommandText = @"INSERT INTO stylist (name) VALUES (@name);";
+
+                MySqlParameter name = new MySqlParameter();
+                name.ParameterName = "@name";
+                name.Value = this._name;
+                cmd.Parameters.Add(name);
+                _id = (int)cmd.LastInsertedId;
+            }
+
             cmd.ExecuteNonQuery();
-            _id = (int)cmd.LastInsertedId;
             conn.Close();
             if (conn != null)
             {

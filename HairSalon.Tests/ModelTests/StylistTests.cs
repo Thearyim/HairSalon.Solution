@@ -64,7 +64,7 @@ namespace HairSalon.Tests
         public void ClearAll_RemovesAllStylistsFromTheDatabase()
         {
             //Act
-            StylistClass.ClearAll();
+            StylistClass.DeleteAll();
             List<StylistClass> allStylists = StylistClass.GetAll();
 
             //Assert

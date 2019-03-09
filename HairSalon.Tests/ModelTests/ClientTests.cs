@@ -12,7 +12,7 @@ namespace HairSalon.Tests
         public void GetName_ReturnsName_String()
         {
             //Arrange
-            ClientClass client = new ClientClass("Bryan", 1);
+            ClientClass client = new ClientClass(1, "Bryan");
 
             //Act
             var newName = client.GetName();
@@ -25,7 +25,7 @@ namespace HairSalon.Tests
         public void GetId_ReturnsExpectedId()
         {
             //Arrange
-            ClientClass client = new ClientClass(3, "Bryan", 1);
+            ClientClass client = new ClientClass(3, "Bryan");
 
             //Act
             int id = client.GetId();
@@ -33,25 +33,12 @@ namespace HairSalon.Tests
             //Assert
             Assert.AreEqual(3, id);
         }
-
-        [TestMethod]
-        public void GetStylistId_ReturnsExpectedId_ClientInt()
-        {
-            //Arrange
-            ClientClass client = new ClientClass("Bryan", 1);
-
-            //Act
-            int stylishId = client.GetStylistId();
-
-            //Assert
-            Assert.AreEqual(1, stylishId);
-        }
-
+        
         [TestMethod]
         public void GetAll_ReturnsAllClientRecordsInTheDatabase()
         {
             //Arrange
-            ClientClass anyClient = new ClientClass("Client1", 2);
+            ClientClass anyClient = new ClientClass(2, "Client1");
 
             //Act
             anyClient.Save();
@@ -67,7 +54,7 @@ namespace HairSalon.Tests
         public void Save_SavesToDatabase_ClientList()
         {
             //Arrange
-            ClientClass newClient = new ClientClass("Client2", 2);
+            ClientClass newClient = new ClientClass(2, "Client2");
 
             //Act
             newClient.Save();
@@ -76,8 +63,7 @@ namespace HairSalon.Tests
             bool clientFound = false;
             foreach (ClientClass actualClient in allClients)
             {
-                if (actualClient.GetName() == newClient.GetName() 
-                    && actualClient.GetStylistId() == newClient.GetStylistId())
+                if (actualClient.GetName() == newClient.GetName())
                 {
                     clientFound = true;
                     break;
@@ -93,8 +79,8 @@ namespace HairSalon.Tests
         {
             //Arrange
             string clientName = "Client3";
-            int stylistId = 1;
-            ClientClass expectedClient = new ClientClass(clientName, stylistId);
+            int clientId = 1;
+            ClientClass expectedClient = new ClientClass(clientId, clientName);
 
             //Act
             expectedClient.Save();
@@ -111,8 +97,8 @@ namespace HairSalon.Tests
         {
             //Arrange
             string clientName = "Client4";
-            int stylistId = 1;
-            ClientClass expectedClient = new ClientClass(clientName, stylistId);
+            int clientId = 1;
+            ClientClass expectedClient = new ClientClass(clientId, clientName);
 
             //Act
             expectedClient.Save();

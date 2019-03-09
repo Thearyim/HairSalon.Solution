@@ -7,12 +7,11 @@ namespace HairSalon.Controllers
     public class StylistsController : Controller
     {
         [HttpPost("/stylists/{stylistId}/clients/{clientId}/add")]
-        public ActionResult AddClient(int stylistId, string clientId)
+        public ActionResult AddClient(int stylistId, int clientId)
         {
             Dictionary<string, object> model = new Dictionary<string, object>();
             StylistClass foundStylist = StylistClass.Find(stylistId);
-            foundStylist.
-            newClient.Save();
+            foundStylist.AddClient(clientId);
             List<ClientClass> stylistClients = foundStylist.GetClients();
             model.Add("clients", stylistClients);
             model.Add("stylist", foundStylist);
