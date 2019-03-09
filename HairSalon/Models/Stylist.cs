@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MySql.Data.MySqlClient;
 
 namespace HairSalon.Models
@@ -23,6 +24,16 @@ namespace HairSalon.Models
             _specialties = specialties;
         }
 
+        public void AddSpecialties(params SpecialtyClass[] specialties)
+        {
+            if (_specialties == null)
+            {
+                _specialties = new List<SpecialtyClass>();
+            }
+
+            _specialties.AddRange(specialties);
+        }
+
         public int GetId()
         {
             return _id;
@@ -36,6 +47,11 @@ namespace HairSalon.Models
         public List<SpecialtyClass> GetSpecialties()
         {
             return _specialties;
+        }
+
+        public void SetSpecialties(List<SpecialtyClass> specialties)
+        {
+            _specialties = new List<SpecialtyClass>(specialties);
         }
 
         public static void ClearAll()
@@ -168,26 +184,57 @@ namespace HairSalon.Models
 
         public static List<StylistClass> GetAll()
         {
-            List<StylistClass> allStylists = new List<StylistClass> { };
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT stylists.id, specialty.description FROM stylists 
-            Join stylists_specialties ON stylist.id = stylists_specialties.stylist_id;";
+
+            // Example Dataset:
+            // id         name             id      description
+            // ---------- ---------------- ------- ---------------------
+            // 1          Sophie           1        Cut
+            // 1          Sophie           2        Color
+            // 2          Jacob            1        Cut
+            // 2          Jacod            2        Color
+            cmd.CommandText =
+               @"SELECT stylist.id, stylist.name, specialty.id, specialty.description
+                 FROM stylist 
+                 LEFT JOIN stylists_specialties ON (stylist.id = stylists_specialties.stylist_id)
+                 LEFT JOIN specialty ON (specialty.id = stylists_specialties.specialty_id)
+                 ORDER BY stylist.id ASC;";
+            
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
+            int stylistId = 0;
+            string stylistName = "";
+            List<StylistClass> stylists = new List<StylistClass>(); 
+
             while (rdr.Read())
             {
-                int stylistId = rdr.GetInt32(0);
-                string stylistName = rdr.GetString(1);
-                StylistClass newStylist = new StylistClass(stylistId, stylistName);
-                allStylists.Add(newStylist);
+                stylistId = rdr.GetInt32(0);
+                stylistName = rdr.GetString(1);
+
+                StylistClass matchingStylist = stylists.FirstOrDefault(stylist => stylist._id == stylistId);
+                if (matchingStylist == null)
+                {
+                    matchingStylist = new StylistClass(stylistId, stylistName);
+                    stylists.Add(matchingStylist);
+                }
+
+                object specialtyId = rdr.GetValue(2);
+                object specialtyDescription = rdr.GetValue(3);
+
+                if (specialtyId != DBNull.Value && specialtyDescription != DBNull.Value)
+                {
+                    matchingStylist.AddSpecialties(new SpecialtyClass(specialtyDescription.ToString(), (int)specialtyId));
+                }
             }
+
             conn.Close();
             if (conn != null)
             {
                 conn.Dispose();
             }
-            return allStylists;
+
+            return stylists;
         }
 
         public List<ClientClass> GetClients()

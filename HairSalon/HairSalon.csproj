@@ -10,6 +10,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Views\Clients\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Views\Specialties\Specialties-Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 </Project>
