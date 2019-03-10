@@ -49,6 +49,11 @@ namespace HairSalon.Models
             return _specialties ?? new List<SpecialtyClass>();
         }
 
+        public void SetName(string name)
+        {
+            _name = name;
+        }
+
         public void AddClient(int clientId)
         {
             MySqlConnection conn = DB.Connection();
@@ -145,6 +150,31 @@ namespace HairSalon.Models
             }
         }
 
+        public void DeleteClient(int clientId)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"DELETE FROM stylists_clients WHERE stylist_id = @stylist_id AND client_id = @client_id;";
+
+            MySqlParameter stylistId = new MySqlParameter();
+            stylistId.ParameterName = "@stylist_id";
+            stylistId.Value = _id;
+            cmd.Parameters.Add(stylistId);
+
+            MySqlParameter client = new MySqlParameter();
+            client.ParameterName = "@client_id";
+            client.Value = clientId;
+            cmd.Parameters.Add(client);
+
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
         public static StylistClass Find(int id)
         {
             MySqlConnection conn = DB.Connection();
@@ -194,7 +224,7 @@ namespace HairSalon.Models
                 }
             }
 
-            if (rdr.HasRows)
+            if (stylistId > 0)
             {
                 stylist = new StylistClass(stylistId, stylistName, stylistSpecialties);
             }
@@ -285,7 +315,6 @@ namespace HairSalon.Models
             {
                 int clientId = rdr.GetInt32(0);
                 string clientName = rdr.GetString(1);
-                int clientStylistId = rdr.GetInt32(2);
                 ClientClass newClient = new ClientClass(clientId, clientName);
                 allStylistClients.Add(newClient);
             }

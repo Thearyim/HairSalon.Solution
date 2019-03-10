@@ -23,6 +23,12 @@
                 <a href='/stylists/@stylist.GetId()'>
                     @stylist.GetName()
                 </a> <br />
+
+                <form method='post'>
+                    <button formaction="/stylists/@stylist.GetId()/edit" type='submit'>Edit</button>
+                    <button formaction="/stylists/@stylist.GetId()/delete" type='submit'>Delete</button>
+                </form>
+
                 <p>Specialties: <a href="/specialties/new">add</a></p>
 
                 <ul>
@@ -34,9 +40,7 @@
                 </ul>
             </h3>
 
-            <form action='/stylists/@stylist.GetId()/delete' method='post'>
-                <button type='submit'>Delete</button>
-            </form>
+            
         </li>
     </ul>
 }
