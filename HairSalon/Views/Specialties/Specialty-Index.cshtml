@@ -4,21 +4,21 @@
 {
     <h3>No specialties have been added yet!</h3>
 }
+<form method="post">
     <ul>
         @foreach (var specialty in Model)
         {
-            <li><a href="/stylists/specialties/@specialty.GetId()">@specialty.GetDescription()</a></li>
+            <li><a href="/stylists/specialties/@specialty.GetId()">@specialty.GetDescription()</a><button formaction='/specialties/@specialty.GetId()/delete'> Delete</button></li>
 
         }
     </ul>
+</form>
+<form action="/specialties" method="post">
 
-    <form action="/specialties" method="post">
-
-        <label for="specialtyDescription">Add Specialty:</label>
-        <input type="text" id="specialtyDescription" name="specialtyDescription" />
-        <button type="submit">Add</button>
-    </form>
+    <label for="specialtyDescription">Add Specialty:</label>
+    <input type="text" id="specialtyDescription" name="specialtyDescription" />
+    <button type="submit">Add</button>
+</form>
 
 <p><a href="/stylists">Back to view stylists</a></p>
 <h3><a href='/'>Return home</a></h3>
-

@@ -36,8 +36,15 @@ namespace HairSalon.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost("/clients/delete")]
+        public ActionResult DeleteAll()
+        {
+            ClientClass.DeleteAll();
+            return RedirectToAction("Index");
+        }
+
         [HttpGet("/clients/{clientId}/edit")]
-        public ActionResult GetEditClientView(int clientId)
+        public ActionResult EditClient(int clientId)
         {
             ClientClass selectedClient = ClientClass.Find(clientId);
             return View("Client-Edit", selectedClient);
@@ -51,6 +58,5 @@ namespace HairSalon.Controllers
             selectedClient.Save();
             return RedirectToAction("Index");
         }
-
     }
 }

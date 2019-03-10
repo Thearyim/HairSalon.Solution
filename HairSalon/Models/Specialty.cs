@@ -14,26 +14,6 @@ namespace HairSalon.Models
             _id = id;
         }
 
-        public string GetDescription()
-        {
-            return _description;
-        }
-
-        public override int GetHashCode()
-        {
-            return this.GetId().GetHashCode();
-        }
-
-        public int GetId()
-        {
-            return _id;
-        }
-
-        public void SetDescription(string newDescription)
-        {
-            _description = newDescription;
-        }
-
         public static void DeleteAll()
         {
             MySqlConnection conn = DB.Connection();
@@ -45,28 +25,6 @@ namespace HairSalon.Models
             cmd.CommandText =
                 @"DELETE FROM stylists_specialties;
                   DELETE FROM specialty;";
-
-            cmd.ExecuteNonQuery();
-            conn.Close();
-            if (conn != null)
-            {
-                conn.Dispose();
-            }
-        }
-
-        public void Delete(int id)
-        {
-            MySqlConnection conn = DB.Connection();
-            conn.Open();
-            var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText =
-                @"DELETE FROM stylists_specialties WHERE specialty_id = @thisId;
-                  DELETE FROM specialty WHERE id = @thisId;";
-
-            MySqlParameter thisId = new MySqlParameter();
-            thisId.ParameterName = "@thisId";
-            thisId.Value = id;
-            cmd.Parameters.Add(thisId);
 
             cmd.ExecuteNonQuery();
             conn.Close();
@@ -129,7 +87,6 @@ namespace HairSalon.Models
             return allSpecialties;
         }
 
-      
         public void Create()
         {
             MySqlConnection conn = DB.Connection();
@@ -138,7 +95,7 @@ namespace HairSalon.Models
             cmd.CommandText = @"INSERT INTO specialty (description) VALUES (@description);";
             MySqlParameter description = new MySqlParameter();
             description.ParameterName = "@description";
-            description.Value = this._description;
+            description.Value = _description;
             cmd.Parameters.Add(description);
             _id = (int)cmd.LastInsertedId;
 
@@ -148,6 +105,48 @@ namespace HairSalon.Models
             {
                 conn.Dispose();
             }
+        }
+
+        public void Delete(int id)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText =
+                @"DELETE FROM stylists_specialties WHERE specialty_id = @thisId;
+                  DELETE FROM specialty WHERE id = @thisId;";
+
+            MySqlParameter thisId = new MySqlParameter();
+            thisId.ParameterName = "@thisId";
+            thisId.Value = id;
+            cmd.Parameters.Add(thisId);
+
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
+        public string GetDescription()
+        {
+            return _description;
+        }
+
+        public override int GetHashCode()
+        {
+            return GetId().GetHashCode();
+        }
+
+        public int GetId()
+        {
+            return _id;
+        }
+
+        public void SetDescription(string newDescription)
+        {
+            _description = newDescription;
         }
     }
 }

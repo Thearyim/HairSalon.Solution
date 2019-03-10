@@ -58,7 +58,7 @@ namespace HairSalon.Models
 
             MySqlParameter stylistId = new MySqlParameter();
             stylistId.ParameterName = "@stylist_id";
-            stylistId.Value = this._id;
+            stylistId.Value = _id;
             cmd.Parameters.Add(stylistId);
 
             MySqlParameter client = new MySqlParameter();
@@ -83,7 +83,7 @@ namespace HairSalon.Models
 
             MySqlParameter stylistId = new MySqlParameter();
             stylistId.ParameterName = "@stylist_id";
-            stylistId.Value = this._id;
+            stylistId.Value = _id;
             cmd.Parameters.Add(stylistId);
 
             MySqlParameter specialty = new MySqlParameter();
@@ -107,7 +107,7 @@ namespace HairSalon.Models
 
             // 1) Delete from the join tables first
             // 2) Delete from the source table last
-            cmd.CommandText = 
+            cmd.CommandText =
                 @"DELETE FROM stylists_clients;
                   DELETE FROM stylists_specialties;
                   DELETE FROM stylist;";
@@ -158,7 +158,7 @@ namespace HairSalon.Models
             // 1          Sophie           2        Color
             cmd.CommandText =
                 @"SELECT stylist.id, stylist.name, specialty.id, specialty.description
-                  FROM stylist 
+                  FROM stylist
                   JOIN stylists_specialties ON (stylist.id = stylists_specialties.stylist_id)
                   JOIN specialty ON (specialty.id = stylists_specialties.specialty_id)
                   WHERE stylist.id = (@searchId);";
@@ -219,15 +219,15 @@ namespace HairSalon.Models
             // 2          Jacod            2        Color
             cmd.CommandText =
                @"SELECT stylist.id, stylist.name, specialty.id, specialty.description
-                 FROM stylist 
+                 FROM stylist
                  LEFT JOIN stylists_specialties ON (stylist.id = stylists_specialties.stylist_id)
                  LEFT JOIN specialty ON (specialty.id = stylists_specialties.specialty_id)
                  ORDER BY stylist.id ASC;";
-            
+
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             int stylistId = 0;
             string stylistName = "";
-            List<StylistClass> stylists = new List<StylistClass>(); 
+            List<StylistClass> stylists = new List<StylistClass>();
 
             while (rdr.Read())
             {
@@ -266,7 +266,7 @@ namespace HairSalon.Models
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText =
-                @"SELECT client.id, client.name 
+                @"SELECT client.id, client.name
                   FROM client
                   JOIN stylists_clients ON(client.id = stylists_clients.client_id)
                   JOIN stylist ON(stylist.id = stylists_clients.stylist_id)
@@ -274,7 +274,7 @@ namespace HairSalon.Models
 
             MySqlParameter stylistId = new MySqlParameter();
             stylistId.ParameterName = "@stylist_id";
-            stylistId.Value = this._id;
+            stylistId.Value = _id;
             cmd.Parameters.Add(stylistId);
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             while (rdr.Read())
@@ -298,18 +298,18 @@ namespace HairSalon.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = 
+            cmd.CommandText =
                 @"SELECT stylist.id, stylist.name, specialty.id, specialty.description
-                 FROM stylist 
+                 FROM stylist
                  JOIN stylists_specialties ON (stylist.id = stylists_specialties.stylist_id)
-                 JOIN specialty ON (specialty.id = stylists_specialties.specialty_id) 
+                 JOIN specialty ON (specialty.id = stylists_specialties.specialty_id)
                  WHERE specialty.id = @specialtyId
                  ORDER BY stylist.id ASC;";
             MySqlParameter stylistSpecialtyId = new MySqlParameter();
             stylistSpecialtyId.ParameterName = "@specialtyId";
             stylistSpecialtyId.Value = specialtyId;
             cmd.Parameters.Add(stylistSpecialtyId);
-           
+
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             int stylistId = 0;
             string stylistName = "";
@@ -335,14 +335,13 @@ namespace HairSalon.Models
                 }
             }
 
-                conn.Close();
+            conn.Close();
             if (conn != null)
             {
                 conn.Dispose();
             }
             return stylists;
         }
-
 
         public void Save()
         {
@@ -354,12 +353,12 @@ namespace HairSalon.Models
                 cmd.CommandText = @"UPDATE stylist SET name = @name WHERE id = @searchId;";
                 MySqlParameter name = new MySqlParameter();
                 name.ParameterName = "@name";
-                name.Value = this._name;
+                name.Value = _name;
                 cmd.Parameters.Add(name);
 
                 MySqlParameter stylistId = new MySqlParameter();
                 stylistId.ParameterName = "@searchId";
-                stylistId.Value = this._id;
+                stylistId.Value = _id;
                 cmd.Parameters.Add(stylistId);
             }
             else
@@ -368,7 +367,7 @@ namespace HairSalon.Models
 
                 MySqlParameter name = new MySqlParameter();
                 name.ParameterName = "@name";
-                name.Value = this._name;
+                name.Value = _name;
                 cmd.Parameters.Add(name);
                 _id = (int)cmd.LastInsertedId;
             }

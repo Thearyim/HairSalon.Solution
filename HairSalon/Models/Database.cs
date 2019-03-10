@@ -1,15 +1,13 @@
-using System;
 using MySql.Data.MySqlClient;
-using HairSalon;
 
 namespace HairSalon.Models
 {
-  public class DB
-  {
-    public static MySqlConnection Connection()
+    public class DB
     {
-      MySqlConnection conn = new MySqlConnection(DBConfiguration.ConnectionString);
-      return conn;
+        public static MySqlConnection Connection()
+        {
+            MySqlConnection conn = new MySqlConnection(DBConfiguration.ConnectionString);
+            return conn;
+        }
     }
-  }
 }

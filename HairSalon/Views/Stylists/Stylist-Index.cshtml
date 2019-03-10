@@ -6,11 +6,11 @@
 }
 
 @if (@Model.Count > 0)
-{ 
-<h5>Click on stylist to see client list</h5>
-<form action="/stylists/delete" method="post">
-    <button type="submit">Delete All</button>
-</form>
+{
+    <h5>Click on stylist to see client list</h5>
+    <form action="/stylists/delete" method="post">
+        <button type="submit">Delete All</button>
+    </form>
 }
 
 <h5><a href='/stylists/new'>Add a new stylist</a></h5>
@@ -37,7 +37,6 @@
             <form action='/stylists/@stylist.GetId()/delete' method='post'>
                 <button type='submit'>Delete</button>
             </form>
-
         </li>
     </ul>
 }
@@ -46,6 +45,5 @@
 {
     <h3><a href="/clients">Register Clients</a></h3>
 }
-
 
 <h3><a href='/'>Return home</a></h3>
