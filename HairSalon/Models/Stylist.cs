@@ -159,8 +159,8 @@ namespace HairSalon.Models
             cmd.CommandText =
                 @"SELECT stylist.id, stylist.name, specialty.id, specialty.description
                   FROM stylist
-                  JOIN stylists_specialties ON (stylist.id = stylists_specialties.stylist_id)
-                  JOIN specialty ON (specialty.id = stylists_specialties.specialty_id)
+                  LEFT JOIN stylists_specialties ON (stylist.id = stylists_specialties.stylist_id)
+                  LEFT JOIN specialty ON (specialty.id = stylists_specialties.specialty_id)
                   WHERE stylist.id = (@searchId);";
 
             MySqlParameter searchId = new MySqlParameter();
@@ -172,8 +172,8 @@ namespace HairSalon.Models
 
             int stylistId = 0;
             string stylistName = "";
-            int specialtyId = 0;
-            string specialtyDescription = "";
+            object specialtyId = 0;
+            object specialtyDescription = "";
             StylistClass stylist = null;
             List<SpecialtyClass> stylistSpecialties = new List<SpecialtyClass>();
 
@@ -185,9 +185,13 @@ namespace HairSalon.Models
                     stylistName = rdr.GetString(1);
                 }
 
-                specialtyId = rdr.GetInt32(2);
-                specialtyDescription = rdr.GetString(3);
-                stylistSpecialties.Add(new SpecialtyClass(specialtyDescription, specialtyId));
+                specialtyId = rdr.GetValue(2);
+                specialtyDescription = rdr.GetValue(3);
+
+                if (specialtyId != DBNull.Value && specialtyDescription != DBNull.Value)
+                {
+                    stylistSpecialties.Add(new SpecialtyClass(specialtyDescription.ToString(), (int)specialtyId));
+                }
             }
 
             if (rdr.HasRows)
