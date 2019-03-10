@@ -13,12 +13,13 @@
                 <a href='/stylists/@stylist.GetId()'>
                     @stylist.GetName()
                 </a> <br/>
-                     <h4>Specialties:</h4>
+                     <p>Specialties: <a href="/specialties/new">add</a></p> 
 
                      <ul>
-                         @foreach (var specialty in Model.GetSpecialties())
+                         @foreach (var specialty in stylist.GetSpecialties())
                          {
                             <li>@specialty.GetDescription()</li>
+
                          }
                       </ul>
 </h3>

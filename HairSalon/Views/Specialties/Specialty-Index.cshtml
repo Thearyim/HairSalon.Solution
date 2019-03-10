@@ -1,0 +1,38 @@
+<h1>Our Specialties</h1>
+
+<ul>
+    <li>Hair Cut</li>
+    <li>Hair Color and Highlights</li>
+    <li>Hair Perm</li>
+</ul>
+
+@if (@Model.Count == 0)
+{
+    <h3>No specialties have been added yet!</h3>
+}
+<h1>List of Specialties</h1>
+
+@if (@Model.Count == 0)
+{
+    <h3>No specialties have been added yet!</h3>
+}
+
+<h3>Add a Specialty Below</h3>
+
+<form action="/specialties" method="post">
+
+    <label for="specialtyDescription">Add Specialty:</label>
+    @foreach (var specialty in Model)
+    {
+        <input type="checkbox" id="@specialty.GetId()" name="@specialty.GetId()" value="@specialty.GetDescription()">
+    }
+
+    <button type="submit">Add</button>
+</form>
+
+
+<p><a href="/stylists">Back to view stylists</a></p>
+
+
+<h3><a href='/stylists/new'>Add a new specialty</a></h3>
+<h3><a href='/'>Return home</a></h3>

@@ -46,7 +46,7 @@ namespace HairSalon.Models
 
         public List<SpecialtyClass> GetSpecialties()
         {
-            return _specialties;
+            return _specialties ?? new List<SpecialtyClass>();
         }
 
         public void AddClient(int clientId)
@@ -65,6 +65,31 @@ namespace HairSalon.Models
             client.ParameterName = "@client_id";
             client.Value = clientId;
             cmd.Parameters.Add(client);
+
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
+        public void AddSpecialty(int specialtyId)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"INSERT INTO stylists_specialties (stylist_id, specialty_id) VALUES (@stylist_id, @specialty_id);";
+
+            MySqlParameter stylistId = new MySqlParameter();
+            stylistId.ParameterName = "@stylist_id";
+            stylistId.Value = this._id;
+            cmd.Parameters.Add(stylistId);
+
+            MySqlParameter specialty = new MySqlParameter();
+            specialty.ParameterName = "@specialty_id";
+            specialty.Value = specialtyId;
+            cmd.Parameters.Add(specialty);
 
             cmd.ExecuteNonQuery();
             conn.Close();

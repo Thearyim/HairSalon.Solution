@@ -103,7 +103,7 @@ namespace HairSalon.Models
 
         public static List<ClientClass> GetAll()
         {
-            List<ClientClass> allClients = new List<ClientClass> {};
+            List<ClientClass> allClients = new List<ClientClass> ();
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
