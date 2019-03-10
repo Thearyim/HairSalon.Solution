@@ -293,6 +293,57 @@ namespace HairSalon.Models
             return allStylistClients;
         }
 
+        public static List<StylistClass> GetStylistsWithSpecialty(int specialtyId)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = 
+                @"SELECT stylist.id, stylist.name, specialty.id, specialty.description
+                 FROM stylist 
+                 JOIN stylists_specialties ON (stylist.id = stylists_specialties.stylist_id)
+                 JOIN specialty ON (specialty.id = stylists_specialties.specialty_id) 
+                 WHERE specialty.id = @specialtyId
+                 ORDER BY stylist.id ASC;";
+            MySqlParameter stylistSpecialtyId = new MySqlParameter();
+            stylistSpecialtyId.ParameterName = "@specialtyId";
+            stylistSpecialtyId.Value = specialtyId;
+            cmd.Parameters.Add(stylistSpecialtyId);
+           
+            var rdr = cmd.ExecuteReader() as MySqlDataReader;
+            int stylistId = 0;
+            string stylistName = "";
+            List<StylistClass> stylists = new List<StylistClass>();
+            while (rdr.Read())
+            {
+                stylistId = rdr.GetInt32(0);
+                stylistName = rdr.GetString(1);
+
+                StylistClass matchingStylist = stylists.FirstOrDefault(stylist => stylist._id == stylistId);
+                if (matchingStylist == null)
+                {
+                    matchingStylist = new StylistClass(stylistId, stylistName);
+                    stylists.Add(matchingStylist);
+                }
+
+                object specialtyIdValue = rdr.GetValue(2);
+                object specialtyDescription = rdr.GetValue(3);
+
+                if (specialtyIdValue != DBNull.Value && specialtyDescription != DBNull.Value)
+                {
+                    matchingStylist.AddSpecialties(new SpecialtyClass(specialtyDescription.ToString(), (int)specialtyIdValue));
+                }
+            }
+
+                conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return stylists;
+        }
+
+
         public void Save()
         {
             MySqlConnection conn = DB.Connection();

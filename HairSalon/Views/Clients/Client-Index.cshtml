@@ -1,0 +1,26 @@
+
+<h1>Client List</h1>
+
+@if (@Model.Count == 0)
+{
+    <h3>No clients have been added yet!</h3>
+}
+    <form method="post">
+        <ul>
+            @foreach (var client in Model)
+            {
+                <li>
+                    @client.GetName() <button formmethod="get" formaction='/clients/@client.GetId()/edit'>Edit</button> <button formmethod="delete" formaction= '/clients/@client.GetId()/delete'>Delete</button>
+                </li>
+            }
+        </ul>
+    </form>
+
+    <form action='/clients' method='post'>
+        <label for="clientName">Client Name:</label>
+        <input type="text" id="clientName" name="clientName" />
+        <button type='submit'>Add</button>
+    </form>
+
+<h3><a href='/'>Return home</a></h3>
+

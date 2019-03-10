@@ -29,6 +29,11 @@ namespace HairSalon.Models
             return _name;
         }
 
+        public void SetName(string name)
+        {
+            _name = name;
+        }
+
         public static void DeleteAll()
         {
             MySqlConnection conn = DB.Connection();

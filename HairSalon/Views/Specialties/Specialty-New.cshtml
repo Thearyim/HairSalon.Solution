@@ -3,13 +3,10 @@
 <form action="/specialties" method="post">
 
     <label for="specialtyDescription">Add Specialty:</label>
-    @foreach (var specialty in Model)
-    {
-        <input type="checkbox" id="@specialty.GetId()" name="@specialty.GetId()" value="@specialty.GetDescription()">
-   }
-
+    <input type="text" id="specialtyDescription" name="specialtyDescription" />
     <button type="submit">Add</button>
 </form>
 
 <p><a href="/">Back home</a></p>
+<h4><a href="/specialties">Back to view all specialties</a></h4>
 <p><a href="/stylists">Back to view stylists</a></p>

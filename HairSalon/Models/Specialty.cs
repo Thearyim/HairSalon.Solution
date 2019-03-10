@@ -129,6 +129,7 @@ namespace HairSalon.Models
             return allSpecialties;
         }
 
+      
         public void Create()
         {
             MySqlConnection conn = DB.Connection();

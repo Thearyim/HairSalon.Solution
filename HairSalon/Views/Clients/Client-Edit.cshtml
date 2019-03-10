@@ -1,0 +1,12 @@
+<h1>Edit Client</h1>
+
+<h2>@Model.GetName()</h2>
+
+<form action='/clients/@Model.GetId()/update' method='post'>
+    <label for="clientName">Client Name:</label>
+    <input type="text" id="clientName" name="clientName" />
+    <button type='submit'>Update</button>
+</form>
+
+<h3><a href='/'>Return home</a></h3>
+
