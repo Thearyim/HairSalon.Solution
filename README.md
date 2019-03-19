@@ -75,12 +75,16 @@ https://www.mono-project.com/
   * > CREATE DATABASE hair_salon;
   * > USE hair_salon;
   * > CREATE TABLE stylist (id serial PRIMARY KEY, name VARCHAR(255));
-  * > CREATE TABLE client (id serial PRIMARY KEY, name VARCHAR(255)), stylist_id INT;
+  * > CREATE TABLE client (id serial PRIMARY KEY, name VARCHAR(255));
+  * > CREATE TABLE specialty (id serial PRIMARY KEY, description VARCHAR(255));
+  * > CREATE TABLE specialities_stylists (id serial PRIMARY KEY, speciality_id INT, stylist_id INT);
 
   * > CREATE DATABASE hair_salon_test;
   * > USE hair_salon_test;
   * > CREATE TABLE stylist (id serial PRIMARY KEY, name VARCHAR(255));
-  * > CREATE TABLE client (id serial PRIMARY KEY, name VARCHAR(255)), stylist_id INT;
+  * > CREATE TABLE client (id serial PRIMARY KEY, name VARCHAR(255));
+  * > CREATE TABLE specialty (id serial PRIMARY KEY, description VARCHAR(255));
+  * > CREATE TABLE specialities_stylists (id serial PRIMARY KEY, speciality_id INT, stylist_id INT);
 
 3. Change into the work directory: $ cd HairSalon.Solution
 
@@ -97,6 +101,7 @@ https://www.mono-project.com/
 
 7. Navigate to http://localhost:5000 in your browser to view the splashpage.
 
+This application requires MAMP or a similar server program. Myphpadmin is optional but recommended to manage the database. The database name should be called theary_im, and the test database should be called theary_im_test, but these can be changed in the HairSalon.Tests/ModelTests/HairSalonTests.cs and HairSalon/Startup.cs files if you choose to change the database name.
 
 ## Known Bugs
 
