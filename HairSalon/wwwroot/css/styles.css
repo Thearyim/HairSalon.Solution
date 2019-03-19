@@ -1,0 +1,29 @@
+html, body {
+    margin-left:30px;
+    margin-right:30px;
+    background-image: url('../img/salon-background1.jpg');
+}
+
+div.container {
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    color: #EEE;
+    background: white;
+    padding: 8px;
+    margin-top: 15px;
+}
+
+div#contentEdit {
+    display: none;
+}
+
+.button {
+    color: #000000;
+}
+
+div.clientList {
+    border: 1px solid grey;
+    margin: 30px;
+    min-height: 300px;
+}

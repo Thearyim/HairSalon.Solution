@@ -1,36 +1,65 @@
-@using HairSalon.Models;
 
-<h1>Here are the stylists available</h1>
-<h2>Stylist: @Model["stylist"].GetName()</h2>
-<div float="left">
-    <h3>Client list for this stylist</h3>
-    <ul>
-        @foreach (var client in @Model["clients"])
-        {
-            <li>
-                @client.GetName()
-            <form action='/stylists/@Model["stylist"].GetId()/clients/@client.GetId()/delete' method='post'>
-                <button type='submit'>Delete</button>
-            </form>
-        </li>
-    }
-    </ul>
+@{
+    Layout = "_Layout";
+}
+
+@Html.Partial("_Header");
+
+<div class="container">
+    <div style="font-size:14pt;font-weight:bold;margin-bottom:10px;">Stylist: @Model["stylist"].GetName()</div>
+   
+    <div class="row">
+        <div class="col-sm-4" style="border:1px dotted gray;min-height:500px;">
+            <div style="font-size:12pt;font-weight:bold;">Specialties:</div>
+            <ul>
+                @foreach (var specialty in @Model["stylist"].GetSpecialties())
+                {
+                    <li>
+                        <form action='/stylists/@Model["stylist"].GetId()/specialties/@specialty.GetId()/delete' method='post'>
+                            @specialty.GetDescription() <button type='submit' class="btn btn-link">delete</button>
+                        </form>
+                    </li>
+                }
+            </ul>
+
+            <div style="font-size:12pt;font-weight:bold;">Clients:</div>
+            <ul>
+                @foreach (var client in @Model["stylist"].GetClients())
+                {
+                    <li>
+                        <form action='/stylists/@Model["stylist"].GetId()/clients/@client.GetId()/delete' method='post'>
+                            @client.GetName() <button type='submit' class="btn btn-link">delete</button>
+                        </form>
+                    </li>
+                }
+            </ul>
+            <div><a href="/stylists">done</a></div>
+        </div>
+        <div class="col-sm-3" style="border:1px dotted gray;min-height:500px;">
+            <div style="font-size:12pt;font-weight:bold;">Available Specialties</div>
+            <ul>
+                @foreach (var specialty in @Model["allSpecialties"])
+                {
+                    <li>
+                        <form action='/stylists/@Model["stylist"].GetId()/specialties/@specialty.GetId()/add' method='post'>
+                            @specialty.GetDescription() <button type='submit' class="btn btn-link">add</button>
+                        </form>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-sm-3" style="border:1px dotted gray;min-height:500px;">
+            <div style="font-size:13pt;font-weight:bold;">Available Clients</div>
+            <ul>
+                @foreach (var client in @Model["allClients"])
+                {
+                    <li>
+                        <form action='/stylists/@Model["stylist"].GetId()/clients/@client.GetId()/add' method='post'>
+                            @client.GetName() <button type='submit' class="btn btn-link">add</button>
+                        </form>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
 </div>
-<div float="right">
-    <h3>All Clients</h3>
-    <ul>
-        @foreach (var client in @Model["allClients"])
-        {
-            <li>
-                @client.GetName()
-                <form action='/stylists/@Model["stylist"].GetId()/clients/@client.GetId()/add' method='post'>
-                    <button type='submit'>Add</button>
-                </form>
-            </li>
-        }
-    </ul>
-</div>
-
-
-<p><a href='/stylists'>Return to list of stylist</a></p>
-<p><a href='/'>Return to home</a></p>

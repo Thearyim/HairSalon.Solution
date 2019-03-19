@@ -1,53 +1,60 @@
-<h1>Current Stylists</h1>
-
-@if (@Model.Count == 0)
-{
-    <h3>No stylists have been added yet!</h3>
+@{
+    Layout = "_Layout";
 }
 
-@if (@Model.Count > 0)
-{
-    <h5>Click on stylist to see client list</h5>
-    <form action="/stylists/delete" method="post">
-        <button type="submit">Delete All</button>
-    </form>
-}
+@Html.Partial("_Header");
 
-<h5><a href='/stylists/new'>Add a new stylist</a></h5>
+<div class="container">
 
-@foreach (var stylist in Model)
-{
-    <ul>
-        <li>
-            <h3>
-                <a href='/stylists/@stylist.GetId()'>
-                    @stylist.GetName()
-                </a> <br />
+    <div style="float:right;">
+        <form method="post">
+            <button formaction="/stylists/new" class="btn btn-link" type="submit">add stylist</button>
+            @if (@Model.Count > 0)
+            {
+                <button formaction="/stylists/delete" class="btn btn-link" type="submit">delete all</button>
+            }
+        </form>
+    </div>
 
-                <form method='post'>
-                    <button formaction="/stylists/@stylist.GetId()/edit" type='submit'>Edit</button>
-                    <button formaction="/stylists/@stylist.GetId()/delete" type='submit'>Delete</button>
-                </form>
+    @if (@Model.Count == 0)
+    {
+        <div>No stylists have been added yet!</div>
+    }
+    else
+    {
+        <div>Click on the individual stylist to add clients or specialties.</div>
+        <br />
+        @foreach (var stylist in Model)
+        {
+            <ul>
+                <li>
+                    <form method='post'>
+                        <button formaction="/stylists/@stylist.GetId()" formmethod="get" class="btn btn-link" style="font-size:14pt;color:darkgreen;">@stylist.GetName()</button>
+                        <button formaction="/stylists/@stylist.GetId()/edit" type='submit' class="btn btn-link">edit</button>
+                        <button formaction="/stylists/@stylist.GetId()/delete" type='submit' class="btn btn-link">delete</button>
+                    </form>
 
-                <p>Specialties: <a href="/specialties/new">add</a></p>
+                    <div style="margin-left:35px;">
+                        <div style="font-weight:bold;margin-top:5px;">Specialties:</div>
+                        <ul>
+                            @foreach (var specialty in stylist.GetSpecialties())
+                            {
+                                <li>@specialty.GetDescription()</li>
 
-                <ul>
-                    @foreach (var specialty in stylist.GetSpecialties())
-                    {
-                        <li>@specialty.GetDescription()</li>
+                            }
+                        </ul>
 
-                    }
-                </ul>
-            </h3>
+                        <div style="font-weight:bold;margin-top:10px;">Clients:</div>
+                        <ul>
+                            @foreach (var client in stylist.GetClients())
+                            {
+                                <li>@client.GetName()</li>
 
-            
-        </li>
-    </ul>
-}
-
-@if (@Model.Count > 0)
-{
-    <h3><a href="/clients">Register Clients</a></h3>
-}
-
-<h3><a href='/'>Return home</a></h3>
+                            }
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        }
+    }
+</div>

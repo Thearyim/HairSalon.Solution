@@ -17,7 +17,14 @@ namespace HairSalon.Controllers
         public ActionResult Index()
         {
             List<ClientClass> allClients = ClientClass.GetAll();
-            return View("Client-Index", allClients);
+            List<StylistClass> allStylists = StylistClass.GetAll();
+            Dictionary<string, object> model = new Dictionary<string, object>
+            {
+                ["clients"] = allClients,
+                ["stylists"] = allStylists
+            };
+
+            return View("Client-Index", model);
         }
 
         [HttpPost("/clients")]
@@ -28,7 +35,7 @@ namespace HairSalon.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpDelete("/clients/{id}/delete")]
+        [HttpPost("/clients/{id}/delete")]
         public ActionResult Delete(int id)
         {
             ClientClass selectedClient = ClientClass.Find(id);

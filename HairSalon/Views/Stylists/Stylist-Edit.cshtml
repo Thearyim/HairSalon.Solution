@@ -1,11 +1,16 @@
-<h1>Hair Salon</h1>
+@{
+    Layout = "_Layout";
+}
 
-<h2>Edit stylist: @Model.GetName()</h2>
+@Html.Partial("_Header");
 
-<form action="/stylists/@Model.GetId()/update" method="post">
-  <label for="newName">Name:</label>
-  <input type="text" name="stylistName" value="@Model.GetName()">
-  <button type="submit">Update</button>
-</form>
+<div class="container">
 
-<h4><a href="/stylists/@Model.GetId()/clients/@Model.GetId()">Return to previous page</a></h4>
+    <h5>@Model.GetName()</h5>
+
+    <form action="/stylists/@Model.GetId()/update" method="post">
+        <label for="newName">Name:</label>
+        <input type="text" name="stylistName" value="@Model.GetName()">
+        <button type="submit">Update</button>
+    </form>
+</div>

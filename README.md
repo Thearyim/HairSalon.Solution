@@ -72,19 +72,23 @@ https://www.mono-project.com/
 
 2. Setup the Database. Import the Database using the SQL files and command shown below:
 
-  * > CREATE DATABASE hair_salon;
-  * > USE hair_salon;
-  * > CREATE TABLE stylist (id serial PRIMARY KEY, name VARCHAR(255));
-  * > CREATE TABLE client (id serial PRIMARY KEY, name VARCHAR(255));
-  * > CREATE TABLE specialty (id serial PRIMARY KEY, description VARCHAR(255));
-  * > CREATE TABLE specialities_stylists (id serial PRIMARY KEY, speciality_id INT, stylist_id INT);
+``` sql
+CREATE DATABASE hairsalon;
+USE hairsalon;
+CREATE TABLE client (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255));
+CREATE TABLE specialty (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, description VARCHAR(255));
+CREATE TABLE stylist (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255));
+CREATE TABLE stylists_clients (client_id INT, stylist_id INT);
+CREATE TABLE stylists_specialties (specialty_id INT, stylist_id INT);
 
-  * > CREATE DATABASE hair_salon_test;
-  * > USE hair_salon_test;
-  * > CREATE TABLE stylist (id serial PRIMARY KEY, name VARCHAR(255));
-  * > CREATE TABLE client (id serial PRIMARY KEY, name VARCHAR(255));
-  * > CREATE TABLE specialty (id serial PRIMARY KEY, description VARCHAR(255));
-  * > CREATE TABLE specialities_stylists (id serial PRIMARY KEY, speciality_id INT, stylist_id INT);
+CREATE DATABASE hairsalon_test;
+USE hairsalon_test;
+CREATE TABLE client (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255));
+CREATE TABLE specialty (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, description VARCHAR(255));
+CREATE TABLE stylist (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255));
+CREATE TABLE stylists_clients (client_id INT, stylist_id INT);
+CREATE TABLE stylists_specialties (specialty_id INT, stylist_id INT);
+```
 
 3. Change into the work directory: $ cd HairSalon.Solution
 

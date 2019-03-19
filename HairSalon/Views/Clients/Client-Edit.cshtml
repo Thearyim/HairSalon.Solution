@@ -1,11 +1,14 @@
-<h1>Edit Client</h1>
+@{
+    Layout = "_Layout";
+}
 
-<h2>@Model.GetName()</h2>
+@Html.Partial("_Header");
 
-<form action='/clients/@Model.GetId()/update' method='post'>
-    <label for="clientName">Client Name:</label>
-    <input type="text" id="clientName" name="clientName" />
-    <button type='submit'>Update</button>
-</form>
+<div class="container">
+    <h5>@Model.GetName()</h5>
 
-<h3><a href='/'>Return home</a></h3>
+    <form action='/clients/@Model.GetId()/update' method='post'>
+        <label for="clientName">Client Name:</label>
+        <input type="text" id="clientName" name="clientName" /> <button type='submit' class="btn btn-list">update</button>
+    </form>
+</div>

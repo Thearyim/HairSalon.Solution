@@ -1,31 +1,45 @@
-<h1>Client List</h1>
-
-@if (@Model.Count == 0)
-{
-    <h3>No clients have been added yet!</h3>
+@{
+    Layout = "_Layout";
 }
 
-@if (@Model.Count > 0)
-{
-    <form action="/clients/delete" method="post">
-        <button type="submit">Delete All</button>
-    </form>
-}
-<form method="post">
-    <ul>
-        @foreach (var client in Model)
+@Html.Partial("_Header");
+
+<div class="container">
+
+    @if (Model["stylists"].Count == 0)
+    {
+        <div>No stylists have been added yet. Please add stylists before registering clients.</div>
+    }
+    else
+    {
+        @if (@Model["clients"].Count == 0)
         {
-            <li>
-                @client.GetName() <button formmethod="get" formaction='/clients/@client.GetId()/edit'>Edit</button> <button formmethod="delete" formaction='/clients/@client.GetId()/delete'>Delete</button>
-            </li>
+            <div>No clients have been added yet!</div>
         }
-    </ul>
-</form>
 
-<form action='/clients' method='post'>
-    <label for="clientName">Client Name:</label>
-    <input type="text" id="clientName" name="clientName" />
-    <button type='submit'>Add</button>
-</form>
+        @if (@Model["clients"].Count > 0)
+        {
+            <div style="float:right;">
+                <form action="/clients/delete" method="post">
+                    <button type="submit" class="btn btn-link">Delete All</button>
+                </form>
+            </div>
+        }
 
-<h3><a href='/'>Return home</a></h3>
+        <form method="post">
+            <ul>
+                @foreach (var client in Model["clients"])
+                {
+                    <li>
+                        @client.GetName() <button formmethod="get" formaction='/clients/@client.GetId()/edit' class="btn btn-link">edit</button> <button formaction='/clients/@client.GetId()/delete' class="btn btn-link">delete</button>
+                    </li>
+                }
+            </ul>
+        </form>
+
+        <form action='/clients' method='post'>
+            <label for="clientName">Client Name:</label>
+            <input type="text" id="clientName" name="clientName" /> <button type='submit' class="btn btn-link">Add</button>
+        </form>
+    }
+</div>
